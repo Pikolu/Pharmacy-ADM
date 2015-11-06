@@ -16,9 +16,7 @@
                 "title": "Payment"
             },
             "name": "Name",
-            "shipping": "Shipping",
-            "logoURL": "LogoURL",
-            "totalEvaluationPoints": "TotalEvaluationPoints"
+            "pharmacy": "Pharmacy"
         }
     }
 }

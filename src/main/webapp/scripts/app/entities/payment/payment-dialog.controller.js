@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('admApp').controller('PaymentDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Payment',
-        function($scope, $stateParams, $modalInstance, entity, Payment) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Payment', 'Pharmacy',
+        function($scope, $stateParams, $modalInstance, entity, Payment, Pharmacy) {
 
         $scope.payment = entity;
+        $scope.pharmacys = Pharmacy.query();
         $scope.load = function(id) {
             Payment.get({id : id}, function(result) {
                 $scope.payment = result;

@@ -47,14 +47,6 @@ public class PaymentResourceTest {
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
 
-    private static final Double DEFAULT_SHIPPING = 1D;
-    private static final Double UPDATED_SHIPPING = 2D;
-    private static final String DEFAULT_LOGO_URL = "AAAAA";
-    private static final String UPDATED_LOGO_URL = "BBBBB";
-
-    private static final Integer DEFAULT_TOTAL_EVALUATION_POINTS = 1;
-    private static final Integer UPDATED_TOTAL_EVALUATION_POINTS = 2;
-
     @Inject
     private PaymentRepository paymentRepository;
 
@@ -90,9 +82,6 @@ public class PaymentResourceTest {
     public void initTest() {
         payment = new Payment();
         payment.setName(DEFAULT_NAME);
-        payment.setShipping(DEFAULT_SHIPPING);
-        payment.setLogoURL(DEFAULT_LOGO_URL);
-        payment.setTotalEvaluationPoints(DEFAULT_TOTAL_EVALUATION_POINTS);
     }
 
     @Test
@@ -113,9 +102,6 @@ public class PaymentResourceTest {
         assertThat(payments).hasSize(databaseSizeBeforeCreate + 1);
         Payment testPayment = payments.get(payments.size() - 1);
         assertThat(testPayment.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testPayment.getShipping()).isEqualTo(DEFAULT_SHIPPING);
-        assertThat(testPayment.getLogoURL()).isEqualTo(DEFAULT_LOGO_URL);
-        assertThat(testPayment.getTotalEvaluationPoints()).isEqualTo(DEFAULT_TOTAL_EVALUATION_POINTS);
     }
 
     @Test
@@ -129,10 +115,7 @@ public class PaymentResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].shipping").value(hasItem(DEFAULT_SHIPPING.doubleValue())))
-                .andExpect(jsonPath("$.[*].logoURL").value(hasItem(DEFAULT_LOGO_URL.toString())))
-                .andExpect(jsonPath("$.[*].totalEvaluationPoints").value(hasItem(DEFAULT_TOTAL_EVALUATION_POINTS)));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -146,10 +129,7 @@ public class PaymentResourceTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(payment.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.shipping").value(DEFAULT_SHIPPING.doubleValue()))
-            .andExpect(jsonPath("$.logoURL").value(DEFAULT_LOGO_URL.toString()))
-            .andExpect(jsonPath("$.totalEvaluationPoints").value(DEFAULT_TOTAL_EVALUATION_POINTS));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -170,9 +150,6 @@ public class PaymentResourceTest {
 
         // Update the payment
         payment.setName(UPDATED_NAME);
-        payment.setShipping(UPDATED_SHIPPING);
-        payment.setLogoURL(UPDATED_LOGO_URL);
-        payment.setTotalEvaluationPoints(UPDATED_TOTAL_EVALUATION_POINTS);
         PaymentDTO paymentDTO = paymentMapper.paymentToPaymentDTO(payment);
 
         restPaymentMockMvc.perform(put("/api/payments")
@@ -185,9 +162,6 @@ public class PaymentResourceTest {
         assertThat(payments).hasSize(databaseSizeBeforeUpdate);
         Payment testPayment = payments.get(payments.size() - 1);
         assertThat(testPayment.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testPayment.getShipping()).isEqualTo(UPDATED_SHIPPING);
-        assertThat(testPayment.getLogoURL()).isEqualTo(UPDATED_LOGO_URL);
-        assertThat(testPayment.getTotalEvaluationPoints()).isEqualTo(UPDATED_TOTAL_EVALUATION_POINTS);
     }
 
     @Test

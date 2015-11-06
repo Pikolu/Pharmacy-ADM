@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('admApp')
-    .controller('PaymentController', function ($scope, Payment, PaymentSearch, ParseLinks) {
-        $scope.payments = [];
+    .controller('PharmacyController', function ($scope, Pharmacy, PharmacySearch, ParseLinks) {
+        $scope.pharmacys = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            Payment.query({page: $scope.page, size: 20}, function(result, headers) {
+            Pharmacy.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
-                $scope.payments = result;
+                $scope.pharmacys = result;
             });
         };
         $scope.loadPage = function(page) {
@@ -17,24 +17,24 @@ angular.module('admApp')
         $scope.loadAll();
 
         $scope.delete = function (id) {
-            Payment.get({id: id}, function(result) {
-                $scope.payment = result;
-                $('#deletePaymentConfirmation').modal('show');
+            Pharmacy.get({id: id}, function(result) {
+                $scope.pharmacy = result;
+                $('#deletePharmacyConfirmation').modal('show');
             });
         };
 
         $scope.confirmDelete = function (id) {
-            Payment.delete({id: id},
+            Pharmacy.delete({id: id},
                 function () {
                     $scope.loadAll();
-                    $('#deletePaymentConfirmation').modal('hide');
+                    $('#deletePharmacyConfirmation').modal('hide');
                     $scope.clear();
                 });
         };
 
         $scope.search = function () {
-            PaymentSearch.query({query: $scope.searchQuery}, function(result) {
-                $scope.payments = result;
+            PharmacySearch.query({query: $scope.searchQuery}, function(result) {
+                $scope.pharmacys = result;
             }, function(response) {
                 if(response.status === 404) {
                     $scope.loadAll();
@@ -48,8 +48,11 @@ angular.module('admApp')
         };
 
         $scope.clear = function () {
-            $scope.payment = {
+            $scope.pharmacy = {
                 name: null,
+                shipping: null,
+                logoURL: null,
+                totalEvaluationPoints: null,
                 id: null
             };
         };

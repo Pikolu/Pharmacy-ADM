@@ -1,11 +1,14 @@
 package com.pharmacy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -24,14 +27,10 @@ public class Payment implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "shipping")
-    private Double shipping;
-
-    @Column(name = "logo_url")
-    private String logoURL;
-
-    @Column(name = "total_evaluation_points")
-    private Integer totalEvaluationPoints;
+    @ManyToMany(mappedBy = "payments")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pharmacy> pharmacys = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -49,28 +48,12 @@ public class Payment implements Serializable {
         this.name = name;
     }
 
-    public Double getShipping() {
-        return shipping;
+    public Set<Pharmacy> getPharmacys() {
+        return pharmacys;
     }
 
-    public void setShipping(Double shipping) {
-        this.shipping = shipping;
-    }
-
-    public String getLogoURL() {
-        return logoURL;
-    }
-
-    public void setLogoURL(String logoURL) {
-        this.logoURL = logoURL;
-    }
-
-    public Integer getTotalEvaluationPoints() {
-        return totalEvaluationPoints;
-    }
-
-    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
-        this.totalEvaluationPoints = totalEvaluationPoints;
+    public void setPharmacys(Set<Pharmacy> pharmacys) {
+        this.pharmacys = pharmacys;
     }
 
     @Override
@@ -99,9 +82,6 @@ public class Payment implements Serializable {
         return "Payment{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", shipping='" + shipping + "'" +
-            ", logoURL='" + logoURL + "'" +
-            ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
             '}';
     }
 }

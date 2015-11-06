@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('admApp')
-    .controller('PaymentDetailController', function ($scope, $rootScope, $stateParams, entity, Payment) {
+    .controller('PaymentDetailController', function ($scope, $rootScope, $stateParams, entity, Payment, Pharmacy) {
         $scope.payment = entity;
         $scope.load = function (id) {
             Payment.get({id: id}, function(result) {

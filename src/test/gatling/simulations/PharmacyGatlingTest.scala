@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Payment entity.
+ * Performance test for the Pharmacy entity.
  */
-class PaymentGatlingTest extends Simulation {
+class PharmacyGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -37,7 +37,7 @@ class PaymentGatlingTest extends Simulation {
         "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
-    val scn = scenario("Test the Payment entity")
+    val scn = scenario("Test the Pharmacy entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -59,26 +59,26 @@ class PaymentGatlingTest extends Simulation {
         .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all payments")
-            .get("/api/payments")
+            exec(http("Get all pharmacys")
+            .get("/api/pharmacys")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new payment")
-            .post("/api/payments")
+            .exec(http("Create new pharmacy")
+            .post("/api/pharmacys")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "shipping":null, "logoURL":"SAMPLE_TEXT", "totalEvaluationPoints":"0"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_payment_url")))
+            .check(headerRegex("Location", "(.*)").saveAs("new_pharmacy_url")))
             .pause(10)
             .repeat(5) {
-                exec(http("Get created payment")
-                .get("${new_payment_url}")
+                exec(http("Get created pharmacy")
+                .get("${new_pharmacy_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created payment")
-            .delete("${new_payment_url}")
+            .exec(http("Delete created pharmacy")
+            .delete("${new_pharmacy_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

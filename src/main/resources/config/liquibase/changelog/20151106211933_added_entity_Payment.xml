@@ -22,9 +22,6 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
-            <column name="shipping" type="double"/>
-            <column name="logo_url" type="varchar(255)"/>
-            <column name="total_evaluation_points" type="integer"/>
         </createTable>
         
     </changeSet>

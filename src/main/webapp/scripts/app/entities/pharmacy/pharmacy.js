@@ -3,94 +3,97 @@
 angular.module('admApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('payment', {
+            .state('pharmacy', {
                 parent: 'entity',
-                url: '/payments',
+                url: '/pharmacys',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'admApp.payment.home.title'
+                    pageTitle: 'admApp.pharmacy.home.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/payment/payments.html',
-                        controller: 'PaymentController'
+                        templateUrl: 'scripts/app/entities/pharmacy/pharmacys.html',
+                        controller: 'PharmacyController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('payment');
+                        $translatePartialLoader.addPart('pharmacy');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]
                 }
             })
-            .state('payment.detail', {
+            .state('pharmacy.detail', {
                 parent: 'entity',
-                url: '/payment/{id}',
+                url: '/pharmacy/{id}',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'admApp.payment.detail.title'
+                    pageTitle: 'admApp.pharmacy.detail.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/payment/payment-detail.html',
-                        controller: 'PaymentDetailController'
+                        templateUrl: 'scripts/app/entities/pharmacy/pharmacy-detail.html',
+                        controller: 'PharmacyDetailController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('payment');
+                        $translatePartialLoader.addPart('pharmacy');
                         return $translate.refresh();
                     }],
-                    entity: ['$stateParams', 'Payment', function($stateParams, Payment) {
-                        return Payment.get({id : $stateParams.id});
+                    entity: ['$stateParams', 'Pharmacy', function($stateParams, Pharmacy) {
+                        return Pharmacy.get({id : $stateParams.id});
                     }]
                 }
             })
-            .state('payment.new', {
-                parent: 'payment',
+            .state('pharmacy.new', {
+                parent: 'pharmacy',
                 url: '/new',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
-                        templateUrl: 'scripts/app/entities/payment/payment-dialog.html',
-                        controller: 'PaymentDialogController',
+                        templateUrl: 'scripts/app/entities/pharmacy/pharmacy-dialog.html',
+                        controller: 'PharmacyDialogController',
                         size: 'lg',
                         resolve: {
                             entity: function () {
                                 return {
                                     name: null,
+                                    shipping: null,
+                                    logoURL: null,
+                                    totalEvaluationPoints: null,
                                     id: null
                                 };
                             }
                         }
                     }).result.then(function(result) {
-                        $state.go('payment', null, { reload: true });
+                        $state.go('pharmacy', null, { reload: true });
                     }, function() {
-                        $state.go('payment');
+                        $state.go('pharmacy');
                     })
                 }]
             })
-            .state('payment.edit', {
-                parent: 'payment',
+            .state('pharmacy.edit', {
+                parent: 'pharmacy',
                 url: '/{id}/edit',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
-                        templateUrl: 'scripts/app/entities/payment/payment-dialog.html',
-                        controller: 'PaymentDialogController',
+                        templateUrl: 'scripts/app/entities/pharmacy/pharmacy-dialog.html',
+                        controller: 'PharmacyDialogController',
                         size: 'lg',
                         resolve: {
-                            entity: ['Payment', function(Payment) {
-                                return Payment.get({id : $stateParams.id});
+                            entity: ['Pharmacy', function(Pharmacy) {
+                                return Pharmacy.get({id : $stateParams.id});
                             }]
                         }
                     }).result.then(function(result) {
-                        $state.go('payment', null, { reload: true });
+                        $state.go('pharmacy', null, { reload: true });
                     }, function() {
                         $state.go('^');
                     })

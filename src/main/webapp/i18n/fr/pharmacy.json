@@ -1,0 +1,23 @@
+{
+    "admApp": {
+        "pharmacy" : {
+            "home": {
+                "title": "Pharmacys",
+                "createLabel": "Créer un nouveau Pharmacy",
+                "createOrEditLabel": "Créer ou éditer un Pharmacy"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Pharmacy {{ id }} ?"
+            },
+            "detail": {
+                "title": "Pharmacy"
+            },
+            "name": "Name",
+            "shipping": "Shipping",
+            "logoURL": "LogoURL",
+            "totalEvaluationPoints": "TotalEvaluationPoints",
+            "payment": "Payment"
+        }
+    }
+}
+
