@@ -21,9 +21,9 @@ spring:
     datasource:
         driver-class-name: org.postgresql.ds.PGSimpleDataSource
         url: jdbc:postgresql://localhost:5432/adm
-        name:
-        username: adm
-        password:
+        name: adm
+        username: postgres
+        password: Admin123#
     jpa:
         database-platform: com.pharmacy.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

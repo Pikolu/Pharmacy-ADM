@@ -555,8 +555,8 @@
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://localhost/adm</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>adm</username>
-                    <password></password>
+                    <username>postgres</username>
+                    <password>Admin123#</password>
                     <referenceUrl>hibernate:spring:com.pharmacy.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
