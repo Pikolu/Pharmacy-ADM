@@ -1,0 +1,28 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "shipping",
+            "fieldType": "Double"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "logoURL",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "totalEvaluationPoints",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20151106211933",
+    "dto": "mapstruct",
+    "pagination": "pagination"
+}

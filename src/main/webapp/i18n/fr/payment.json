@@ -1,0 +1,22 @@
+{
+    "admApp": {
+        "payment" : {
+            "home": {
+                "title": "Payments",
+                "createLabel": "Créer un nouveau Payment",
+                "createOrEditLabel": "Créer ou éditer un Payment"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Payment {{ id }} ?"
+            },
+            "detail": {
+                "title": "Payment"
+            },
+            "name": "Name",
+            "shipping": "Shipping",
+            "logoURL": "LogoURL",
+            "totalEvaluationPoints": "TotalEvaluationPoints"
+        }
+    }
+}
+
