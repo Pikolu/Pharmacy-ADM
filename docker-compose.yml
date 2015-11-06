@@ -1,0 +1,11 @@
+jhipster-dev-postgresql:
+  container_name: adm-dev-postgresql
+  image: postgres
+  # volumes:
+  # - ~/volumes/jhipster/adm/dev-postgresql/:/var/lib/postgresql/
+  environment:
+  - POSTGRES_USER=adm
+  - POSTGRES_PASSWORD=
+  ports:
+  - "5432:5432"
+
