@@ -1,11 +1,11 @@
 <div>
-    <h2 translate="admApp.pharmacy.home.title">Pharmacys</h2>
+    <h2 translate="admApp.evaluation.home.title">Evaluations</h2>
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="pharmacy.new">
-                    <span class="glyphicon glyphicon-flash"></span> <span translate="admApp.pharmacy.home.createLabel">Create a new Pharmacy</span>
+                <button class="btn btn-primary" ui-sref="evaluation.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="admApp.evaluation.home.createLabel">Create a new Evaluation</span>
                 </button>
             </div>
             <div class="col-md-8">
@@ -13,24 +13,24 @@
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
                     </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Pharmacy</span>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Evaluation</span>
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="deletePharmacyConfirmation">
+    <div class="modal fade" id="deleteEvaluationConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form name="deleteForm" ng-submit="confirmDelete(pharmacy.id)">
+                <form name="deleteForm" ng-submit="confirmDelete(evaluation.id)">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
-                        <p translate="admApp.pharmacy.delete.question" translate-values="{id: '{{pharmacy.id}}'}">Are you sure you want to delete this Pharmacy?</p>
+                        <p translate="admApp.evaluation.delete.question" translate-values="{id: '{{evaluation.id}}'}">Are you sure you want to delete this Evaluation?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -50,37 +50,41 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
-                    <th translate="admApp.pharmacy.name">Name</th>
-                    <th translate="admApp.pharmacy.shipping">Shipping</th>
-                    <th translate="admApp.pharmacy.logoURL">LogoURL</th>
-                    <th translate="admApp.pharmacy.totalEvaluationPoints">TotalEvaluationPoints</th>
-                    <th translate="admApp.pharmacy.user">user</th>
+                    <th translate="admApp.evaluation.name">Name</th>
+                    <th translate="admApp.evaluation.description">Description</th>
+                    <th translate="admApp.evaluation.points">Points</th>
+                    <th translate="admApp.evaluation.descriptionPoints">DescriptionPoints</th>
+                    <th translate="admApp.evaluation.shippingPoints">ShippingPoints</th>
+                    <th translate="admApp.evaluation.shippingPricePoints">ShippingPricePoints</th>
+                    <th translate="admApp.evaluation.pharmacy">pharmacy</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pharmacy in pharmacys track by pharmacy.id">
-                    <td><a ui-sref="pharmacy.detail({id:pharmacy.id})">{{pharmacy.id}}</a></td>
-                    <td>{{pharmacy.name}}</td>
-                    <td>{{pharmacy.shipping}}</td>
-                    <td>{{pharmacy.logoURL}}</td>
-                    <td>{{pharmacy.totalEvaluationPoints}}</td>
+                <tr ng-repeat="evaluation in evaluations track by evaluation.id">
+                    <td><a ui-sref="evaluation.detail({id:evaluation.id})">{{evaluation.id}}</a></td>
+                    <td>{{evaluation.name}}</td>
+                    <td>{{evaluation.description}}</td>
+                    <td>{{evaluation.points}}</td>
+                    <td>{{evaluation.descriptionPoints}}</td>
+                    <td>{{evaluation.shippingPoints}}</td>
+                    <td>{{evaluation.shippingPricePoints}}</td>
                     <td>
-                        {{pharmacy.user.id}}
+                        <a ui-sref="pharmacy.detail({id:evaluation.pharmacy.id})">{{evaluation.pharmacy.id}}</a>
                     </td>
                     <td>
                         <button type="submit"
-                                ui-sref="pharmacy.detail({id:pharmacy.id})"
+                                ui-sref="evaluation.detail({id:evaluation.id})"
                                 class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
                         </button>
                         <button type="submit"
-                                ui-sref="pharmacy.edit({id:pharmacy.id})"
+                                ui-sref="evaluation.edit({id:evaluation.id})"
                                 class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
                         </button>
                         <button type="submit"
-                                ng-click="delete(pharmacy.id)"
+                                ng-click="delete(evaluation.id)"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
                         </button>

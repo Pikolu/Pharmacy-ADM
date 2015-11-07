@@ -25,6 +25,9 @@
             <column name="shipping" type="double"/>
             <column name="logo_url" type="varchar(255)"/>
             <column name="total_evaluation_points" type="integer"/>
+            <column name="user_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
         </createTable>
         
         <createTable tableName="pharmacy_payment">
@@ -50,5 +53,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="payment"/>
         
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="pharmacy"
+                                 constraintName="fk_pharmacy_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
     </changeSet>
 </databaseChangeLog>

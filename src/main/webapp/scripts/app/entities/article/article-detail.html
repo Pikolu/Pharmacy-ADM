@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="admApp.pharmacy.detail.title">Pharmacy</span> {{pharmacy.id}}</h2>
+    <h2><span translate="admApp.article.detail.title">Article</span> {{article.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,52 +12,50 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="admApp.pharmacy.name">Name</span>
+                    <span translate="admApp.article.name">Name</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{pharmacy.name}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="admApp.pharmacy.shipping">Shipping</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{pharmacy.shipping}}</span>
+                    <span class="form-control-static">{{article.name}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="admApp.pharmacy.logoURL">LogoURL</span>
+                    <span translate="admApp.article.description">Description</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{pharmacy.logoURL}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="admApp.pharmacy.totalEvaluationPoints">TotalEvaluationPoints</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{pharmacy.totalEvaluationPoints}}</span>
+                    <span class="form-control-static">{{article.description}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="admApp.pharmacy.payment">payment</span>
+                    <span translate="admApp.article.articelNumber">ArticelNumber</span>
                 </td>
                 <td>
-                    <span ng-repeat="payment in pharmacy.payments">
-                        <a class="form-control-static" ui-sref="payment.detail({id: {{payment.id}}})">{{payment.id}}</a>{{$last ? '' : ', '}}
-                    <span>
+                    <span class="form-control-static">{{article.articelNumber}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="admApp.pharmacy.user">user</span>
+                    <span translate="admApp.article.imageURL">ImageURL</span>
                 </td>
                 <td>
-                    {{pharmacy.user.id}}
+                    <span class="form-control-static">{{article.imageURL}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.deepLink">DeepLink</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.deepLink}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.keyWords">KeyWords</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.keyWords}}</span>
                 </td>
             </tr>
             </tbody>

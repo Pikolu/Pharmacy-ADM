@@ -1,0 +1,46 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "4000"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "articelNumber",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "imageURL",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "deepLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "keyWords",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20151106220251",
+    "dto": "no",
+    "pagination": "pagination"
+}

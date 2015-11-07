@@ -19,7 +19,9 @@
             "shipping": "Shipping",
             "logoURL": "LogoURL",
             "totalEvaluationPoints": "TotalEvaluationPoints",
-            "payment": "Payment"
+            "payment": "Payment",
+            "user": "User",
+            "evaluation": "Evaluation"
         }
     }
 }

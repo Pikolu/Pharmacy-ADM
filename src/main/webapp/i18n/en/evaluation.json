@@ -1,0 +1,27 @@
+{
+    "admApp": {
+        "evaluation" : {
+            "home": {
+                "title": "Evaluations",
+                "createLabel": "Create a new Evaluation",
+                "createOrEditLabel": "Create or edit a Evaluation"
+            },
+            "created": "A new Evaluation is created with identifier {{ param }}",
+            "updated": "A Evaluation is updated with identifier {{ param }}",
+            "deleted": "A Evaluation is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Evaluation {{ id }}?"
+            },
+            "detail": {
+                "title": "Evaluation"
+            },
+            "name": "Name",
+            "description": "Description",
+            "points": "Points",
+            "descriptionPoints": "DescriptionPoints",
+            "shippingPoints": "ShippingPoints",
+            "shippingPricePoints": "ShippingPricePoints",
+            "pharmacy": "Pharmacy"
+        }
+    }
+}

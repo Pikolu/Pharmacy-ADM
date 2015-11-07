@@ -1,38 +1,32 @@
 'use strict';
 
-describe('Pharmacy Detail Controller', function() {
+describe('Article Detail Controller', function() {
     var $scope, $rootScope;
-    var MockEntity, MockPharmacy, MockPayment, MockUser, MockEvaluation;
+    var MockEntity, MockArticle;
     var createController;
 
     beforeEach(inject(function($injector) {
         $rootScope = $injector.get('$rootScope');
         $scope = $rootScope.$new();
         MockEntity = jasmine.createSpy('MockEntity');
-        MockPharmacy = jasmine.createSpy('MockPharmacy');
-        MockPayment = jasmine.createSpy('MockPayment');
-        MockUser = jasmine.createSpy('MockUser');
-        MockEvaluation = jasmine.createSpy('MockEvaluation');
+        MockArticle = jasmine.createSpy('MockArticle');
         
 
         var locals = {
             '$scope': $scope,
             '$rootScope': $rootScope,
             'entity': MockEntity ,
-            'Pharmacy': MockPharmacy,
-            'Payment': MockPayment,
-            'User': MockUser,
-            'Evaluation': MockEvaluation
+            'Article': MockArticle
         };
         createController = function() {
-            $injector.get('$controller')("PharmacyDetailController", locals);
+            $injector.get('$controller')("ArticleDetailController", locals);
         };
     }));
 
 
     describe('Root Scope Listening', function() {
         it('Unregisters root scope listener upon scope destruction', function() {
-            var eventType = 'admApp:pharmacyUpdate';
+            var eventType = 'admApp:articleUpdate';
 
             createController();
             expect($rootScope.$$listenerCount[eventType]).toEqual(1);

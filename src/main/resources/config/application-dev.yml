@@ -39,8 +39,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                  logs: target/elasticsearch/log
-                  data: target/elasticsearch/data
+                  logs: C:\lucene
+                  data: C:\lucene
     mail:
         host: localhost
     messages:
