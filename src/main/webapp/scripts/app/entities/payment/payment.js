@@ -62,9 +62,6 @@ angular.module('admApp')
                             entity: function () {
                                 return {
                                     name: null,
-                                    shipping: null,
-                                    logoURL: null,
-                                    totalEvaluationPoints: null,
                                     id: null
                                 };
                             }

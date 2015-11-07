@@ -1,6 +1,8 @@
 package com.pharmacy.web.rest.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 
@@ -12,12 +14,6 @@ public class PaymentDTO implements Serializable {
     private Long id;
 
     private String name;
-
-    private Double shipping;
-
-    private String logoURL;
-
-    private Integer totalEvaluationPoints;
 
     public Long getId() {
         return id;
@@ -33,30 +29,6 @@ public class PaymentDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Double getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(Double shipping) {
-        this.shipping = shipping;
-    }
-
-    public String getLogoURL() {
-        return logoURL;
-    }
-
-    public void setLogoURL(String logoURL) {
-        this.logoURL = logoURL;
-    }
-
-    public Integer getTotalEvaluationPoints() {
-        return totalEvaluationPoints;
-    }
-
-    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
-        this.totalEvaluationPoints = totalEvaluationPoints;
     }
 
     @Override
@@ -85,9 +57,6 @@ public class PaymentDTO implements Serializable {
         return "PaymentDTO{" +
             "id=" + id +
             ", name='" + name + "'" +
-            ", shipping='" + shipping + "'" +
-            ", logoURL='" + logoURL + "'" +
-            ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
             '}';
     }
 }

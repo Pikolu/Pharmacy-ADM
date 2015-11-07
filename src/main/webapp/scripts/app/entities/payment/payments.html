@@ -51,9 +51,6 @@
                 <tr>
                     <th translate="global.field.id">ID</th>
                     <th translate="admApp.payment.name">Name</th>
-                    <th translate="admApp.payment.shipping">Shipping</th>
-                    <th translate="admApp.payment.logoURL">LogoURL</th>
-                    <th translate="admApp.payment.totalEvaluationPoints">TotalEvaluationPoints</th>
                     <th></th>
                 </tr>
             </thead>
@@ -61,9 +58,6 @@
                 <tr ng-repeat="payment in payments track by payment.id">
                     <td><a ui-sref="payment.detail({id:payment.id})">{{payment.id}}</a></td>
                     <td>{{payment.name}}</td>
-                    <td>{{payment.shipping}}</td>
-                    <td>{{payment.logoURL}}</td>
-                    <td>{{payment.totalEvaluationPoints}}</td>
                     <td>
                         <button type="submit"
                                 ui-sref="payment.detail({id:payment.id})"

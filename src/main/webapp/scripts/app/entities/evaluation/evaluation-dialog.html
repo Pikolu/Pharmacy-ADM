@@ -1,0 +1,114 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEvaluationLabel" translate="admApp.evaluation.home.createOrEditLabel">Create or edit a Evaluation</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="evaluation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="evaluation.name"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="evaluation.description"
+                    ng-maxlength="4000" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
+                    This field cannot be longer than 4000 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.points" for="field_points">Points</label>
+            <input type="number" class="form-control" name="points" id="field_points"
+                    ng-model="evaluation.points"
+                    max="5" />
+            <div ng-show="editForm.points.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.points.$error.max" translate="entity.validation.max" translate-value-max="5">
+                    This field cannot be more than 5.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.points.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.descriptionPoints" for="field_descriptionPoints">DescriptionPoints</label>
+            <input type="number" class="form-control" name="descriptionPoints" id="field_descriptionPoints"
+                    ng-model="evaluation.descriptionPoints"
+                    max="5" />
+            <div ng-show="editForm.descriptionPoints.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.descriptionPoints.$error.max" translate="entity.validation.max" translate-value-max="5">
+                    This field cannot be more than 5.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.descriptionPoints.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.shippingPoints" for="field_shippingPoints">ShippingPoints</label>
+            <input type="number" class="form-control" name="shippingPoints" id="field_shippingPoints"
+                    ng-model="evaluation.shippingPoints"
+                    max="5" />
+            <div ng-show="editForm.shippingPoints.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.shippingPoints.$error.max" translate="entity.validation.max" translate-value-max="5">
+                    This field cannot be more than 5.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.shippingPoints.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="admApp.evaluation.shippingPricePoints" for="field_shippingPricePoints">ShippingPricePoints</label>
+            <input type="number" class="form-control" name="shippingPricePoints" id="field_shippingPricePoints"
+                    ng-model="evaluation.shippingPricePoints"
+                    max="5" />
+            <div ng-show="editForm.shippingPricePoints.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.shippingPricePoints.$error.max" translate="entity.validation.max" translate-value-max="5">
+                    This field cannot be more than 5.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.shippingPricePoints.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="admApp.evaluation.pharmacy" for="field_pharmacy">pharmacy</label>
+            <select class="form-control" id="field_pharmacy" name="pharmacy" ng-model="evaluation.pharmacy" ng-options="pharmacy as pharmacy.id for pharmacy in pharmacys track by pharmacy.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,78 @@
+
+<div>
+    <h2><span translate="admApp.evaluation.detail.title">Evaluation</span> {{evaluation.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.points">Points</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.points}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.descriptionPoints">DescriptionPoints</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.descriptionPoints}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.shippingPoints">ShippingPoints</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.shippingPoints}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.shippingPricePoints">ShippingPricePoints</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{evaluation.shippingPricePoints}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.evaluation.pharmacy">pharmacy</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="pharmacy.detail({id:evaluation.pharmacy.id})">{{evaluation.pharmacy.id}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

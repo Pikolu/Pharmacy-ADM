@@ -1,0 +1,70 @@
+
+<div>
+    <h2><span translate="admApp.article.detail.title">Article</span> {{article.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="admApp.article.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.articelNumber">ArticelNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.articelNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.imageURL">ImageURL</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.imageURL}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.deepLink">DeepLink</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.deepLink}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="admApp.article.keyWords">KeyWords</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{article.keyWords}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

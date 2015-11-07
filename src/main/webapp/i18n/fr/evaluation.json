@@ -1,0 +1,25 @@
+{
+    "admApp": {
+        "evaluation" : {
+            "home": {
+                "title": "Evaluations",
+                "createLabel": "Créer un nouveau Evaluation",
+                "createOrEditLabel": "Créer ou éditer un Evaluation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Evaluation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Evaluation"
+            },
+            "name": "Name",
+            "description": "Description",
+            "points": "Points",
+            "descriptionPoints": "DescriptionPoints",
+            "shippingPoints": "ShippingPoints",
+            "shippingPricePoints": "ShippingPricePoints",
+            "pharmacy": "Pharmacy"
+        }
+    }
+}
+

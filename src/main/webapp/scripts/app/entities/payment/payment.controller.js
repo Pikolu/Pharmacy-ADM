@@ -50,9 +50,6 @@ angular.module('admApp')
         $scope.clear = function () {
             $scope.payment = {
                 name: null,
-                shipping: null,
-                logoURL: null,
-                totalEvaluationPoints: null,
                 id: null
             };
         };

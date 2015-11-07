@@ -1,0 +1,27 @@
+{
+    "admApp": {
+        "pharmacy" : {
+            "home": {
+                "title": "Pharmacys",
+                "createLabel": "Create a new Pharmacy",
+                "createOrEditLabel": "Create or edit a Pharmacy"
+            },
+            "created": "A new Pharmacy is created with identifier {{ param }}",
+            "updated": "A Pharmacy is updated with identifier {{ param }}",
+            "deleted": "A Pharmacy is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Pharmacy {{ id }}?"
+            },
+            "detail": {
+                "title": "Pharmacy"
+            },
+            "name": "Name",
+            "shipping": "Shipping",
+            "logoURL": "LogoURL",
+            "totalEvaluationPoints": "TotalEvaluationPoints",
+            "payment": "Payment",
+            "user": "User",
+            "evaluation": "Evaluation"
+        }
+    }
+}

@@ -7,6 +7,9 @@
             "entities": {
                 "main": "Entités",
                 "payment": "Payment",
+                "pharmacy": "Pharmacy",
+                "article": "Article",
+                "evaluation": "Evaluation",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
