@@ -133,6 +133,9 @@ public class ArticleResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Article> searchArticles(@PathVariable String query) {
+
+        Iterable<Article> test = articleSearchRepository.findAll();
+
         return StreamSupport
             .stream(articleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
