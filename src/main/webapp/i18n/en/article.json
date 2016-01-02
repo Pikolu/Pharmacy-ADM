@@ -20,7 +20,8 @@
             "articelNumber": "ArticelNumber",
             "imageURL": "ImageURL",
             "deepLink": "DeepLink",
-            "keyWords": "KeyWords"
+            "keyWords": "KeyWords",
+            "price": "Price"
         }
     }
 }

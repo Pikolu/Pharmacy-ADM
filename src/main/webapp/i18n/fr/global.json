@@ -10,6 +10,7 @@
                 "pharmacy": "Pharmacy",
                 "article": "Article",
                 "evaluation": "Evaluation",
+                "price": "Price",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
