@@ -1,0 +1,24 @@
+{
+    "admApp": {
+        "price" : {
+            "home": {
+                "title": "Prices",
+                "createLabel": "Créer un nouveau Price",
+                "createOrEditLabel": "Créer ou éditer un Price"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Price {{ id }} ?"
+            },
+            "detail": {
+                "title": "Price"
+            },
+            "suggestedRetailPrice": "SuggestedRetailPrice",
+            "extraShippingSuffix": "ExtraShippingSuffix",
+            "discount": "Discount",
+            "price": "Price",
+            "pharmacy": "Pharmacy",
+            "article": "Article"
+        }
+    }
+}
+
