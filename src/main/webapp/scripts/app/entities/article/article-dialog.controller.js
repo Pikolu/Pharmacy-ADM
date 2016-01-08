@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('admApp').controller('ArticleDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Article',
-        function($scope, $stateParams, $modalInstance, entity, Article) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Article', 'Price',
+        function($scope, $stateParams, $modalInstance, entity, Article, Price) {
 
         $scope.article = entity;
+        $scope.prices = Price.query();
         $scope.load = function(id) {
             Article.get({id : id}, function(result) {
                 $scope.article = result;

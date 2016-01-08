@@ -1,0 +1,45 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "pharmacy",
+            "otherEntityName": "pharmacy",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "price"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "article",
+            "otherEntityName": "article",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "suggestedRetailPrice",
+            "fieldType": "Float"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "extraShippingSuffix",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "discount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "price",
+            "fieldType": "Float"
+        }
+    ],
+    "changelogDate": "20160102193612",
+    "dto": "no",
+    "pagination": "pagination"
+}

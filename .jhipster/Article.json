@@ -1,5 +1,13 @@
 {
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "price",
+            "otherEntityName": "price",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "article"
+        }
+    ],
     "fields": [
         {
             "fieldId": 1,
