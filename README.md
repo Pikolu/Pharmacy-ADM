@@ -1,5 +1,7 @@
 # Developing adm
 
+[![Build Status](https://travis-ci.org/Pikolu/Pharmacy-ADM.svg?branch=master)](https://travis-ci.org/Pikolu/Pharmacy-ADM)
+
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.gitub.io][].
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
