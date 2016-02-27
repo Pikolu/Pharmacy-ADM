@@ -19,7 +19,7 @@ angular.module('admApp').controller('MyCtrl', ['$scope', '$modalInstance', 'Uplo
             url: 'api/upload/url',
             fields: {
                 'username': 'zouroto',
-                'pharmacy':  $scope.pharmacys}, // additional data to send
+                'id':  $scope.pharmacy.id}, // additional data to send
             file: file
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);

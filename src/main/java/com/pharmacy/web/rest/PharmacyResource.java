@@ -146,8 +146,10 @@ public class PharmacyResource {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/upload/url", method = RequestMethod.POST)
-    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("pharmacy") Pharmacy pharmacy) throws IOException {
+    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("id") String id) throws IOException {
         Assert.notNull(file);
+        Assert.notNull(id);
+        Pharmacy pharmacy = pharmacyRepository.findOne(Long.valueOf(id));
         importService.importCSVFile(file, pharmacy);
         System.out.println(String.format("receive %s from %s", file.getOriginalFilename(), username));
     }

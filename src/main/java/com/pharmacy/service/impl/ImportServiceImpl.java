@@ -5,6 +5,7 @@ import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.Price;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.PharmacyRepository;
+import com.pharmacy.repository.PriceRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ImportService;
@@ -41,6 +42,8 @@ public class ImportServiceImpl implements ImportService {
     private ArticleSearchRepository articleSearchRepository;
     @Inject
     private PriceSearchRepository priceSearchRepository;
+    @Inject
+    private PriceRepository priceRepository;
 
     /**
      * This method imports the articles from CSV file and save this into database.
@@ -116,6 +119,7 @@ public class ImportServiceImpl implements ImportService {
             article.getPrices().add(price);
             price.setArticle(article);
             price.setPharmacy(pharmacy);
+            priceRepository.save(price);
         }
         return article;
     }
