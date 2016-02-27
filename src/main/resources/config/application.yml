@@ -54,4 +54,4 @@ jhipster:
         licenseUrl:
 
 multipart:
-    max-file-size: 10Mb
+    max-file-size: 100Mb

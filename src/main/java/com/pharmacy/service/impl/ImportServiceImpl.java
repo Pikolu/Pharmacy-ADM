@@ -10,7 +10,6 @@ import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ImportService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.math3.util.Precision;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +19,12 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Alexander on 14.11.2015.
@@ -104,23 +105,15 @@ public class ImportServiceImpl implements ImportService {
         article.setExported(false);
         Assert.notNull(pharmacy);
 
-        Price price;
+        Price price = new Price();
+        price.setPrice(Double.valueOf(attr.get(5)));
+        price.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
+        price.setExtraShippingSuffix(attr.get(13));
+        article.getPrices().add(price);
+        price.setArticle(article);
+        price.setPharmacy(pharmacy);
+        priceRepository.save(price);
 
-        double rangeMin = 0.99;
-        double rangeMax = 99.99;
-
-        for (int i = 1; i < 10; i++) {
-            Random r = new Random();
-            double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-            randomValue = Precision.round(randomValue, 2);
-            price = new Price();
-            price.setPrice(randomValue);
-            price.setDiscount(i * 10);
-            article.getPrices().add(price);
-            price.setArticle(article);
-            price.setPharmacy(pharmacy);
-            priceRepository.save(price);
-        }
         return article;
     }
 
@@ -228,12 +221,12 @@ public class ImportServiceImpl implements ImportService {
             }
 
             if ((!quoted && c == csvSeparator) // The separator ..
-                    || i + 1 == record.length()) // .. or, the end of record.
+                || i + 1 == record.length()) // .. or, the end of record.
             {
                 String field = fieldBuilder.toString() // Obtain the field, ..
-                        .replaceAll(csvSeparator + "$", "") // .. trim ending separator, ..
-                        .replaceAll("^\"|\"$", "") // .. trim surrounding quotes, ..
-                        .replace("\"\"", "\""); // .. and un-escape quotes.
+                    .replaceAll(csvSeparator + "$", "") // .. trim ending separator, ..
+                    .replaceAll("^\"|\"$", "") // .. trim surrounding quotes, ..
+                    .replace("\"\"", "\""); // .. and un-escape quotes.
                 fields.add(field.trim()); // Add field to List.
                 fieldBuilder = new StringBuilder(); // Reset.
             }

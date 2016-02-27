@@ -48,7 +48,7 @@
                 </td>
                 <td>
                     <span ng-repeat="payment in pharmacy.payments">
-                        <a class="form-control-static" ui-sref="payment.detail({id: {{payment.id}}})">{{payment.id}}</a>{{$last ? '' : ', '}}
+                        <a class="form-control-static" ui-sref="payment.detail({id: {{payment.id}}})">{{payment.name}}</a>{{$last ? '' : ', '}}
                     <span>
                 </td>
             </tr>
@@ -57,7 +57,7 @@
                     <span translate="admApp.pharmacy.user">user</span>
                 </td>
                 <td>
-                    {{pharmacy.user.id}}
+                    {{pharmacy.user.name}}
                 </td>
             </tr>
             </tbody>
