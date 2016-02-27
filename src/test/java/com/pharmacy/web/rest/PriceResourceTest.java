@@ -51,8 +51,8 @@ public class PriceResourceTest {
     private static final Integer DEFAULT_DISCOUNT = 1;
     private static final Integer UPDATED_DISCOUNT = 2;
 
-    private static final Float DEFAULT_PRICE = 1F;
-    private static final Float UPDATED_PRICE = 2F;
+    private static final Double DEFAULT_PRICE = 1D;
+    private static final Double UPDATED_PRICE = 2D;
 
     @Inject
     private PriceRepository priceRepository;
