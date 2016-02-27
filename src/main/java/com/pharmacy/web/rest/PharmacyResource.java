@@ -15,8 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -135,5 +137,18 @@ public class PharmacyResource {
         return StreamSupport
             .stream(pharmacySearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/upload/url", method = RequestMethod.POST)
+    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) throws IOException {
+        byte[] bytes;
+
+        if (!file.isEmpty()) {
+            bytes = file.getBytes();
+            //store file in storage
+        }
+
+        System.out.println(String.format("receive %s from %s", file.getOriginalFilename(), username));
     }
 }
