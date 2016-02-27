@@ -42,7 +42,8 @@ public class Pharmacy implements Serializable {
                inverseJoinColumns = @JoinColumn(name="payments_id", referencedColumnName="ID"))
     private Set<Payment> payments = new HashSet<>();
 
-    @OneToOne    private User user;
+    @OneToOne
+    private User user;
 
     @OneToMany(mappedBy = "pharmacy")
     @JsonIgnore

@@ -4,24 +4,34 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myPharmacyLabel" translate="admApp.pharmacy.home.createOrEditLabel">Create or edit a Pharmacy</h4>
+        <h4 class="modal-title" id="myPharmacyLabel">Import CSV-File</h4>
     </div>
     <div class="modal-body">
+        <div class="form-group">
+            <label for="field_pharmacy">Apotheke</label>
+            <select class="form-control" id="field_pharmacy" name="pharmacy" ng-model="pharmacy" ng-options="pharmacy as pharmacy.name for pharmacy in pharmacys track by pharmacy.name">
+                <option value=""></option>
+            </select>
+        </div>
         <jh-alert-error></jh-alert-error>
         <form name="form">
-            Single Image with validations
-            <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                 ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-                 ngf-resize="{width: 100, height: 100}">Select</div>
-            <button type="submit" ng-click="submitUploadFile()">submit</button>
+            <h3>Bitte wählen Sie CSV-Datei</h3>
+            <br />
+            <a class="btn btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'.csv'"
+                 ngf-accept="'.csv'" ngf-max-size="20MB" ngf-min-height="100" role="button">Select</a>
+            <br /><br />
         </form>
+        <div class="form-group">
+            <label for="field_pharmacy">Dateiname</label>
+            <div>{{file.name}}</div>
+        </div>
     </div>
-    <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">-->
-            <!--<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>-->
-        <!--</button>-->
-        <!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">-->
-            <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>-->
-        <!--</button>-->
-    <!--</div>-->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary" ng-click="submitUploadFile()">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Importieren</span>
+        </button>
+    </div>
 </form>

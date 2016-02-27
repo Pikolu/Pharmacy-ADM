@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.repository.PharmacyRepository;
 import com.pharmacy.repository.search.PharmacySearchRepository;
+import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.rest.util.HeaderUtil;
 import com.pharmacy.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +44,9 @@ public class PharmacyResource {
 
     @Inject
     private PharmacySearchRepository pharmacySearchRepository;
+
+    @Inject
+    private ImportService importService;
 
     /**
      * POST  /pharmacys -> Create a new pharmacy.
@@ -141,14 +146,11 @@ public class PharmacyResource {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/upload/url", method = RequestMethod.POST)
-    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) throws IOException {
-        byte[] bytes;
-
-        if (!file.isEmpty()) {
-            bytes = file.getBytes();
-            //store file in storage
-        }
-
+    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("id") String id) throws IOException {
+        Assert.notNull(file);
+        Assert.notNull(id);
+        Pharmacy pharmacy = pharmacyRepository.findOne(Long.valueOf(id));
+        importService.importCSVFile(file, pharmacy);
         System.out.println(String.format("receive %s from %s", file.getOriginalFilename(), username));
     }
 }

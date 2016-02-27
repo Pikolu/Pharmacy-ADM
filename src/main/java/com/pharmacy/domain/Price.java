@@ -6,8 +6,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -33,9 +31,10 @@ public class Price implements Serializable {
     private Integer discount;
 
     @Column(name = "price")
-    private Float price;
+    private Double price;
 
-    @OneToOne    private Pharmacy pharmacy;
+    @OneToOne
+    private Pharmacy pharmacy;
 
     @ManyToOne
     private Article article;
@@ -72,11 +71,11 @@ public class Price implements Serializable {
         this.discount = discount;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -107,7 +106,7 @@ public class Price implements Serializable {
 
         Price price = (Price) o;
 
-        if ( ! Objects.equals(id, price.id)) return false;
+        if (!Objects.equals(id, price.id)) return false;
 
         return true;
     }
