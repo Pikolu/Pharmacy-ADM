@@ -87,12 +87,11 @@ public class ImportServiceImpl implements ImportService {
      */
     private Article getArticle(List<String> attr, Pharmacy pharmacy) throws ServiceException {
         String articleNumber = attr.get(0);
-        Article article;
-        if (StringUtils.isBlank(articleNumber)) {
-            LOG.debug("number of article {} is empty", articleNumber);
-            article = articleRepository.findArticleByArticleNumber(Integer.valueOf(articleNumber));
-        } else {
-            LOG.debug("number of article {} is not empty", articleNumber);
+        Assert.hasText(articleNumber);
+        Article article = articleRepository.findArticleByArticleNumber(Integer.valueOf(articleNumber));
+
+        if (article == null) {
+            LOG.debug("article is empty", articleNumber);
             article = new Article();
         }
 
