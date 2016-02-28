@@ -98,5 +98,34 @@ angular.module('admApp')
                         $state.go('^');
                     })
                 }]
+            })
+            .state('pharmacy.import', {
+                parent: 'pharmacy',
+                url: '/import',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pharmacy/pharmacy-import-dialog.html',
+                        controller: 'MyCtrl',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    name: null,
+                                    shipping: null,
+                                    logoURL: null,
+                                    totalEvaluationPoints: null,
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                            $state.go('pharmacy', null, { reload: true });
+                        }, function() {
+                            $state.go('pharmacy');
+                        })
+                }]
             });
     });

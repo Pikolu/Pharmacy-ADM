@@ -50,6 +50,9 @@ public class Article implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Price> prices = new HashSet<>();
 
+    @Column(name = "exported")
+    private Boolean exported;
+
     public Long getId() {
         return id;
     }
@@ -112,6 +115,14 @@ public class Article implements Serializable {
 
     public void setPrices(Set<Price> prices) {
         this.prices = prices;
+    }
+
+    public Boolean getExported() {
+        return exported;
+    }
+
+    public void setExported(Boolean exported) {
+        this.exported = exported;
     }
 
     @Override
