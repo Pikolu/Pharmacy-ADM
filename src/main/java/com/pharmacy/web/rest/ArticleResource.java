@@ -54,6 +54,7 @@ public class ArticleResource {
         if (article.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
         }
+        article.setExported(false);
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
@@ -73,6 +74,7 @@ public class ArticleResource {
         if (article.getId() == null) {
             return createArticle(article);
         }
+        article.setExported(false);
         Article result = articleRepository.save(article);
         articleSearchRepository.save(article);
         return ResponseEntity.ok()

@@ -97,6 +97,7 @@ public class ImportServiceImpl implements ImportService {
 
         article.setArticelNumber(Integer.valueOf(articleNumber));
         article.setName(attr.get(2));
+        article.setSortName(attr.get(2));
         article.setDescription(attr.get(3));
         article.setImageURL(attr.get(7));
         article.setDeepLink(attr.get(8));
