@@ -47,6 +47,9 @@ public class Evaluation implements Serializable {
     @Column(name = "shipping_price_points")
     private Integer shippingPricePoints;
 
+    @Column(name = "active")
+    private Boolean active;
+
     @ManyToOne
     private Pharmacy pharmacy;
 
@@ -104,6 +107,14 @@ public class Evaluation implements Serializable {
 
     public void setShippingPricePoints(Integer shippingPricePoints) {
         this.shippingPricePoints = shippingPricePoints;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Pharmacy getPharmacy() {

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +28,22 @@ public class Pharmacy implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "street", length = 100)
+    @Field(type = FieldType.String)
+    private String street;
+
+    @Column(name = "house_number", length = 100)
+    @Field(type = FieldType.String)
+    private String houseNumber;
+
+    @Column(name = "zip_code")
+    @Field(type = FieldType.Integer)
+    private int zipCode;
+
+    @Column(name = "city", length = 100)
+    @Field(type = FieldType.String)
+    private String city;
 
     @Column(name = "shipping")
     private Double shipping;
@@ -64,6 +82,38 @@ public class Pharmacy implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Double getShipping() {
