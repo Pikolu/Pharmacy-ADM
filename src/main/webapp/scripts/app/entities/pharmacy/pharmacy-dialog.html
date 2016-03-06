@@ -48,6 +48,35 @@
                 <option value=""></option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label translate="admApp.pharmacy.steet" for="field_street">Name</label>
+            <input type="text" class="form-control" name="street" id="field_street"
+                   ng-model="pharmacy.street"
+                />
+        </div>
+
+        <div class="form-group">
+            <label translate="admApp.pharmacy.houseNumber" for="field_house_number">Name</label>
+            <input type="text" class="form-control" name="houseNumber" id="field_house_number"
+                   ng-model="pharmacy.houseNumber"
+                />
+        </div>
+
+        <div class="form-group">
+            <label translate="admApp.pharmacy.zipCode" for="field_zip_code">Name</label>
+            <input type="text" class="form-control" name="zipCode" id="field_zip_code"
+                   ng-model="pharmacy.zipCode"
+                />
+        </div>
+
+        <div class="form-group">
+            <label translate="admApp.pharmacy.city" for="field_city">Name</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                   ng-model="pharmacy.city"
+                />
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

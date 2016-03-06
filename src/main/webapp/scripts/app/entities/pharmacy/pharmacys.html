@@ -58,6 +58,7 @@
                     <th translate="admApp.pharmacy.logoURL">LogoURL</th>
                     <th translate="admApp.pharmacy.totalEvaluationPoints">TotalEvaluationPoints</th>
                     <th translate="admApp.pharmacy.user">user</th>
+                    <th translate="admApp.pharmacy.active">active</th>
                     <th></th>
                 </tr>
             </thead>
@@ -69,7 +70,10 @@
                     <td>{{pharmacy.logoURL}}</td>
                     <td>{{pharmacy.totalEvaluationPoints}}</td>
                     <td>
-                        {{pharmacy.user.id}}
+                        {{pharmacy.user.name}}
+                    </td>
+                    <td>
+                        {{pharmacy.active}}
                     </td>
                     <td>
                         <button type="submit"

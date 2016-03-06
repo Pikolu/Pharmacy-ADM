@@ -58,6 +58,11 @@
                 "max"
             ],
             "fieldValidateRulesMax": "5"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "active",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20151107170110",
