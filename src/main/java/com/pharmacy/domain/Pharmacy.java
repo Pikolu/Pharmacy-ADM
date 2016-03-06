@@ -5,13 +5,14 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Pharmacy.
@@ -27,6 +28,7 @@ public class Pharmacy implements Serializable {
     private Long id;
 
     @Column(name = "name")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String name;
 
     @Column(name = "street", length = 100)
@@ -45,6 +47,18 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String city;
 
+    @Column(name = "phone_number", length = 12)
+    @Field(type = FieldType.String)
+    private String phoneNumber;
+
+    @Column(name = "fax", length = 12)
+    @Field(type = FieldType.String)
+    private String fax;
+
+    @Column(name = "home_page", length = 100)
+    @Field(type = FieldType.String)
+    private String homePage;
+
     @Column(name = "shipping")
     private Double shipping;
 
@@ -54,16 +68,18 @@ public class Pharmacy implements Serializable {
     @Column(name = "total_evaluation_points")
     private Integer totalEvaluationPoints;
 
-    @ManyToMany    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "pharmacy_payment",
-               joinColumns = @JoinColumn(name="pharmacys_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="payments_id", referencedColumnName="ID"))
+        joinColumns = @JoinColumn(name = "pharmacys_id", referencedColumnName = "ID"),
+        inverseJoinColumns = @JoinColumn(name = "payments_id", referencedColumnName = "ID"))
     private Set<Payment> payments = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private User user;
 
-    @OneToMany(mappedBy = "pharmacy")
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Evaluation> evaluations = new HashSet<>();
@@ -116,6 +132,30 @@ public class Pharmacy implements Serializable {
         this.city = city;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getHomePage() {
+        return homePage;
+    }
+
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
+
     public Double getShipping() {
         return shipping;
     }
@@ -141,6 +181,9 @@ public class Pharmacy implements Serializable {
     }
 
     public Set<Payment> getPayments() {
+        if (payments == null) {
+            payments = new HashSet<>();
+        }
         return payments;
     }
 
@@ -157,6 +200,9 @@ public class Pharmacy implements Serializable {
     }
 
     public Set<Evaluation> getEvaluations() {
+        if (evaluations == null) {
+            evaluations = new HashSet<>();
+        }
         return evaluations;
     }
 
@@ -175,9 +221,8 @@ public class Pharmacy implements Serializable {
 
         Pharmacy pharmacy = (Pharmacy) o;
 
-        if ( ! Objects.equals(id, pharmacy.id)) return false;
+        return Objects.equals(id, pharmacy.id);
 
-        return true;
     }
 
     @Override
