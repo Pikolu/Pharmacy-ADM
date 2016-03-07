@@ -2,7 +2,9 @@ package com.pharmacy.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pharmacy.domain.Pharmacy;
+import com.pharmacy.domain.User;
 import com.pharmacy.repository.PharmacyRepository;
+import com.pharmacy.repository.UserRepository;
 import com.pharmacy.repository.search.PharmacySearchRepository;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.rest.util.HeaderUtil;
@@ -48,6 +50,9 @@ public class PharmacyResource {
     @Inject
     private ImportService importService;
 
+    @Inject
+    private UserRepository userRepository;
+
     /**
      * POST  /pharmacys -> Create a new pharmacy.
      */
@@ -78,6 +83,10 @@ public class PharmacyResource {
         log.debug("REST request to update Pharmacy : {}", pharmacy);
         if (pharmacy.getId() == null) {
             return createPharmacy(pharmacy);
+        }
+        if (pharmacy.getUser() != null) {
+            User user = userRepository.findOne(pharmacy.getUser().getId());
+            pharmacy.setUser(user);
         }
         Pharmacy result = pharmacyRepository.save(pharmacy);
         pharmacySearchRepository.save(pharmacy);
