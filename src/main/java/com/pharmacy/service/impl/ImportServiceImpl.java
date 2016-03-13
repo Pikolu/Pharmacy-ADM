@@ -1,19 +1,20 @@
 package com.pharmacy.service.impl;
 
+import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.Price;
-import com.pharmacy.repository.ArticleRepository;
-import com.pharmacy.repository.PharmacyRepository;
-import com.pharmacy.repository.PriceRepository;
+import com.pharmacy.repository.*;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ImportService;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +46,10 @@ public class ImportServiceImpl implements ImportService {
     private PriceSearchRepository priceSearchRepository;
     @Inject
     private PriceRepository priceRepository;
+    @Inject
+    private ArticleRepositoryImpl articleRepositoryImpl;
+    @Inject
+    private PriceRepositoryImpl priceRepositoryImpl;
 
     /**
      * This method imports the articles from CSV file and save this into database.
@@ -55,15 +60,20 @@ public class ImportServiceImpl implements ImportService {
         InputStream inputStream = null;
         boolean first = true;
         try {
+            LOG.info("Beginning the import of products for pharmacy {}", pharmacy);
             inputStream = file.getInputStream();
             List<List<String>> csvList = parseCsv(inputStream, ';');
-            Article article;
+            List<List<List<String>>> ll = Lists.partition(csvList, 1000);
             assert csvList != null;
-            for (List<String> attr : csvList) {
-                article = getArticle(attr, pharmacy);
-                Article saveArticle = articleRepository.save(article);
-                articleSearchRepository.save(saveArticle);
-            }
+            ll.forEach(l -> {
+                List<Article> art = new ArrayList<>();
+                l.forEach(l2 -> {
+                    art.add(getArticle(l2, pharmacy));
+                });
+                articleRepositoryImpl.save(art);
+                articleSearchRepository.save(art);
+            });
+            LOG.info("Finish the import of products for {}", pharmacy);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -85,35 +95,35 @@ public class ImportServiceImpl implements ImportService {
      * @return article for save
      * @throws ServiceException
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     private Article getArticle(List<String> attr, Pharmacy pharmacy) throws ServiceException {
+        LOG.debug("Create product from CSV file {}", ArrayUtils.toString(attr));
         String articleNumber = attr.get(0);
         Assert.hasText(articleNumber);
-        Article article = articleRepository.findArticleByArticleNumber(Integer.valueOf(articleNumber));
-
+        Article article = articleRepository.findOne(Long.valueOf(articleNumber));
         if (article == null) {
             LOG.debug("article is empty", articleNumber);
             article = new Article();
+            article.setId(Long.valueOf(articleNumber));
+            article.setArticelNumber(Integer.valueOf(articleNumber));
+            article.setName(attr.get(2));
+            article.setSortName(attr.get(2));
+            article.setDescription(attr.get(3));
+            article.setImageURL(attr.get(7));
+            article.setDeepLink(attr.get(8));
+            article.setKeyWords(attr.get(9));
+            article.setExported(false);
+            Assert.notNull(pharmacy);
         }
 
-        article.setArticelNumber(Integer.valueOf(articleNumber));
-        article.setName(attr.get(2));
-        article.setSortName(attr.get(2));
-        article.setDescription(attr.get(3));
-        article.setImageURL(attr.get(7));
-        article.setDeepLink(attr.get(8));
-        article.setKeyWords(attr.get(9));
-        article.setExported(false);
-        Assert.notNull(pharmacy);
-
         Price price = new Price();
-        price.setPrice(Double.valueOf(attr.get(5)));
+        price.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
         price.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
         price.setExtraShippingSuffix(attr.get(13));
-        article.getPrices().add(price);
         price.setArticle(article);
         price.setPharmacy(pharmacy);
-        priceRepository.save(price);
-
+        article.getPrices().add(price);
+        LOG.info("Product is created or updated {}", article.toInfoString());
         return article;
     }
 

@@ -13,6 +13,5 @@ public interface PaymentMapper {
 
     PaymentDTO paymentToPaymentDTO(Payment payment);
 
-    @Mapping(target = "pharmacys", ignore = true)
     Payment paymentDTOToPayment(PaymentDTO paymentDTO);
 }

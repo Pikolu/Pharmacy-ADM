@@ -71,7 +71,6 @@ public class PaymentResourceTest {
         MockitoAnnotations.initMocks(this);
         PaymentResource paymentResource = new PaymentResource();
         ReflectionTestUtils.setField(paymentResource, "paymentRepository", paymentRepository);
-        ReflectionTestUtils.setField(paymentResource, "paymentMapper", paymentMapper);
         ReflectionTestUtils.setField(paymentResource, "paymentSearchRepository", paymentSearchRepository);
         this.restPaymentMockMvc = MockMvcBuilders.standaloneSetup(paymentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

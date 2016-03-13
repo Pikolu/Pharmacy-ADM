@@ -36,7 +36,7 @@ public class Price implements Serializable {
     @OneToOne
     private Pharmacy pharmacy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Article article;
 
     public Long getId() {

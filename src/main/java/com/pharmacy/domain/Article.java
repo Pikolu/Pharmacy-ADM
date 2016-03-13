@@ -9,23 +9,26 @@ import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Article.
  */
 @Entity
-@Table(name = "article")
+@Table(name = "article", indexes = {
+    @Index(name = "article_number_index", columnList="articel_number")
+})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "article")
 public class Article implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -53,7 +56,7 @@ public class Article implements Serializable {
     @Column(name = "key_words")
     private String keyWords;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Price> prices = new HashSet<>();
@@ -152,7 +155,7 @@ public class Article implements Serializable {
 
         Article article = (Article) o;
 
-        if ( ! Objects.equals(id, article.id)) return false;
+        if (!Objects.equals(id, article.id)) return false;
 
         return true;
     }
@@ -172,6 +175,14 @@ public class Article implements Serializable {
             ", imageURL='" + imageURL + "'" +
             ", deepLink='" + deepLink + "'" +
             ", keyWords='" + keyWords + "'" +
+            '}';
+    }
+
+    public String toInfoString() {
+        return "Article{" +
+            "id=" + id +
+            ", articelNumber='" + articelNumber + "'" +
+            ", name='" + name + "'" +
             '}';
     }
 }

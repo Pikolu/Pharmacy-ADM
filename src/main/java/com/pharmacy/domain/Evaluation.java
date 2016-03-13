@@ -50,7 +50,7 @@ public class Evaluation implements Serializable {
     @Column(name = "active")
     private Boolean active;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
 
     public Long getId() {
