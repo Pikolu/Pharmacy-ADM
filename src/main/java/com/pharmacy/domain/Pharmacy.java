@@ -55,6 +55,10 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String fax;
 
+    @Column(name = "email", length = 100)
+    @Field(type = FieldType.String)
+    private String email;
+
     @Column(name = "home_page", length = 100)
     @Field(type = FieldType.String)
     private String homePage;
@@ -239,5 +243,13 @@ public class Pharmacy implements Serializable {
             ", logoURL='" + logoURL + "'" +
             ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
             '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
