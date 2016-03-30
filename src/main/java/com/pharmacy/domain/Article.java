@@ -3,6 +3,8 @@ package com.pharmacy.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,7 +31,6 @@ import java.util.Set;
 public class Article implements Serializable {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -63,6 +65,14 @@ public class Article implements Serializable {
 
     @Column(name = "exported")
     private Boolean exported;
+
+    @LastModifiedDate
+    @Column(name = "last_updated")
+    private ZonedDateTime lastUpdated = ZonedDateTime.now();
+
+    @CreatedDate
+    @Column(name = "creation_date")
+    private ZonedDateTime creationDate = ZonedDateTime.now();
 
     public Long getId() {
         return id;
@@ -144,6 +154,22 @@ public class Article implements Serializable {
         this.exported = exported;
     }
 
+    public ZonedDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(ZonedDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public ZonedDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(ZonedDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -185,4 +211,5 @@ public class Article implements Serializable {
             ", name='" + name + "'" +
             '}';
     }
+
 }
