@@ -38,8 +38,6 @@ spring:
             hibernate.hbm2ddl.auto: validate
     data:
         elasticsearch:
-            cluster-name: my-application
-            cluster-nodes:
             properties:
                 path:
                   logs: C:\lucene

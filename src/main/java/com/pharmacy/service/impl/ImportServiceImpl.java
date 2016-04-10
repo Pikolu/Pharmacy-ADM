@@ -64,15 +64,18 @@ public class ImportServiceImpl implements ImportService {
             LOG.info("Beginning the import of products for pharmacy {}", pharmacy);
             inputStream = file.getInputStream();
             List<List<String>> csvList = parseCsv(inputStream, ';');
-            List<List<List<String>>> ll = Lists.partition(csvList, 1000);
+            List<List<List<String>>> ll = Lists.partition(csvList, 100);
             assert csvList != null;
             ll.forEach(l -> {
                 List<Article> art = new ArrayList<>();
                 l.forEach(l2 -> {
-                    art.add(getArticle(l2, pharmacy));
+                    Article article = getArticle(l2, pharmacy);
+                    art.add(article);
+//                    articleSearchRepository.save(article);
+
                 });
-                articleRepositoryImpl.save(art);
-                articleSearchRepository.save(art);
+                articleRepository.save(art);
+//                articleSearchRepository.save(art);
             });
             LOG.info("Finish the import of products for {}", pharmacy);
         } catch (Exception ex) {
@@ -125,7 +128,7 @@ public class ImportServiceImpl implements ImportService {
         price.setArticle(article);
         price.setPharmacy(pharmacy);
         article.getPrices().add(price);
-        LOG.info("Product is created or updated {}", article.toInfoString());
+        LOG.debug("Product is created or updated {}", article.toInfoString());
         return article;
     }
 
@@ -177,9 +180,11 @@ public class ImportServiceImpl implements ImportService {
      */
     private List<List<String>> parseCsv(InputStream inputStream, char csvSeparator) throws ServiceException {
         BufferedReader csvReader = null;
+        InputStreamReader inputStreamReader = null;
         try {
             List<List<String>> csvList = new ArrayList<>();
-            csvReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            csvReader = new BufferedReader(inputStreamReader);
             String csvRecord;
             boolean fistLine = true;
             while ((csvRecord = csvReader.readLine()) != null) {
@@ -197,6 +202,9 @@ public class ImportServiceImpl implements ImportService {
             ex.printStackTrace();
         } finally {
             try {
+                if (inputStreamReader != null){
+                    inputStreamReader.close();
+                }
                 if (csvReader != null) {
                     csvReader.close();
                 }

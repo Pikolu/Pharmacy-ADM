@@ -23,6 +23,7 @@ angular.module('admApp').controller('MyCtrl', ['$scope', '$modalInstance', 'Uplo
             file: file
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            $scope.clear();
         }, function (resp) {
             console.log('Error status: ' + resp.status);
         }, function (evt) {

@@ -66,13 +66,13 @@ public class Article implements Serializable {
     @Column(name = "exported")
     private Boolean exported;
 
-    @LastModifiedDate
-    @Column(name = "last_updated")
-    private ZonedDateTime lastUpdated = ZonedDateTime.now();
-
-    @CreatedDate
-    @Column(name = "creation_date")
-    private ZonedDateTime creationDate = ZonedDateTime.now();
+//    @LastModifiedDate
+//    @Column(name = "last_updated")
+//    private ZonedDateTime lastUpdated = ZonedDateTime.now();
+//
+//    @CreatedDate
+//    @Column(name = "creation_date")
+//    private ZonedDateTime creationDate = ZonedDateTime.now();
 
     public Long getId() {
         return id;
@@ -154,21 +154,21 @@ public class Article implements Serializable {
         this.exported = exported;
     }
 
-    public ZonedDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(ZonedDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
+//    public ZonedDateTime getLastUpdated() {
+//        return lastUpdated;
+//    }
+//
+//    public void setLastUpdated(ZonedDateTime lastUpdated) {
+//        this.lastUpdated = lastUpdated;
+//    }
+//
+//    public ZonedDateTime getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public void setCreationDate(ZonedDateTime creationDate) {
+//        this.creationDate = creationDate;
+//    }
 
     @Override
     public boolean equals(Object o) {

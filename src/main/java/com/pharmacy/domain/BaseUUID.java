@@ -2,6 +2,7 @@ package com.pharmacy.domain;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Objects;
  * Created by apopow on 27.12.2015.
  */
 @MappedSuperclass
+@Document(indexName = "BaseUUID")
 public class BaseUUID implements Serializable {
 
     @Id
