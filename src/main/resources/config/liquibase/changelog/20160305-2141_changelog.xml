@@ -17,7 +17,7 @@
     </changeSet>
     <changeSet author="Alexander (generated)" id="1457210518289-4">
         <addColumn tableName="pharmacy">
-            <column name="zip_code" type="int4"/>
+            <column name="zip_code" type="varchar(10)"/>
         </addColumn>
     </changeSet>
 </databaseChangeLog>
