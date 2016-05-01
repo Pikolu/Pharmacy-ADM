@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--<changeSet author="Alexander (generated)" id="1459284083648-1">-->
+        <!--<addColumn tableName="article">-->
+            <!--<column name="creation_date" type="timestamp"/>-->
+        <!--</addColumn>-->
+    <!--</changeSet>-->
+    <changeSet author="Alexander (generated)" id="1459284083648-1">
+        <addColumn tableName="evaluation">
+            <column name="creation_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <!--<changeSet author="Alexander (generated)" id="1459284083648-3">-->
+        <!--<addColumn tableName="article">-->
+            <!--<column name="last_updated" type="timestamp"/>-->
+        <!--</addColumn>-->
+    <!--</changeSet>-->
+    <changeSet author="Alexander (generated)" id="1459284083648-2">
+        <addColumn tableName="evaluation">
+            <column name="last_updated" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

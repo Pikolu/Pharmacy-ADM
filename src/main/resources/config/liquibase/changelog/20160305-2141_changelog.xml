@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Alexander (generated)" id="1457210518289-1">
+        <addColumn tableName="pharmacy">
+            <column name="city" type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1457210518289-2">
+        <addColumn tableName="pharmacy">
+            <column name="house_number" type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1457210518289-3">
+        <addColumn tableName="pharmacy">
+            <column name="street" type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1457210518289-4">
+        <addColumn tableName="pharmacy">
+            <column name="zip_code" type="varchar(10)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
