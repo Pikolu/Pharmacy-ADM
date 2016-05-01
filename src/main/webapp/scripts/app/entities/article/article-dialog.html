@@ -21,8 +21,8 @@
         </div>
         <div class="form-group">
             <label translate="admApp.article.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="article.description"
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                    ng-model="article.description" rows="10" cols="50"
                     ng-maxlength="4000" />
             <div ng-show="editForm.description.$invalid">
                 <p class="help-block"
@@ -31,22 +31,21 @@
                 </p>
             </div>
         </div>
+
         <div class="form-group">
-            <label translate="admApp.article.articelNumber" for="field_articelNumber">ArticelNumber</label>
-            <input type="number" class="form-control" name="articelNumber" id="field_articelNumber"
-                    ng-model="article.articelNumber"
-                    required />
-            <div ng-show="editForm.articelNumber.$invalid">
+            <label translate="admApp.article.fullDescription" for="field_full_description">Description</label>
+            <textarea type="text" class="form-control" name="fullDescription" id="field_full_description"
+                   rows="10" cols="50" ng-model="article.fullDescription" ui-tinymce
+                   ng-maxlength="4000" />
+
+            <div ng-show="editForm.fullDescription.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.articelNumber.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.articelNumber.$error.number" translate="entity.validation.number">
-                    This field should be a number.
+                   ng-show="editForm.fullDescription.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
+                    This field cannot be longer than 4000 characters.
                 </p>
             </div>
         </div>
+
         <div class="form-group">
             <label translate="admApp.article.imageURL" for="field_imageURL">ImageURL</label>
             <input type="text" class="form-control" name="imageURL" id="field_imageURL"

@@ -29,6 +29,9 @@ security:
     basic:
         enabled: false
 
+logging:
+    config: classpath:logback.xml
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
