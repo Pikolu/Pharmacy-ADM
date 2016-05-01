@@ -54,6 +54,9 @@ server:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
 
+logging:
+    config: classpath:logback-prod.xml
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================

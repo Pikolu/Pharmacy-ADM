@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Alexander (generated)" id="1454019601119-1">
+        <addColumn tableName="article">
+            <column name="concentration" type="float4"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1454019601119-2">
+        <addColumn tableName="article">
+            <column name="packaging" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1454019601119-3">
+        <addColumn tableName="article">
+            <column name="recipe" type="boolean"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

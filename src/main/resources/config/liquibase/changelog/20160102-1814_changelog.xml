@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="Alexander (generated)" id="1451754899655-1">
+        <createTable tableName="price">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="suggested_retail_price" type="${floatType}"/>
+            <column name="extra_shipping_suffix" type="varchar(255)"/>
+            <column name="discount" type="integer"/>
+            <column name="price" type="${floatType}"/>
+            <column name="pharmacy_id" type="bigint">
+                <constraints unique="false"/>
+            </column>
+            <column name="article_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-2">
+        <dropSequence sequenceName="article_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-3">
+        <dropSequence sequenceName="evaluation_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-4">
+        <dropSequence sequenceName="jhi_persistent_audit_event_event_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-5">
+        <dropSequence sequenceName="jhi_user_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-6">
+        <dropSequence sequenceName="payment_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-7">
+        <dropSequence sequenceName="pharmacy_id_seq"/>
+    </changeSet>
+    <changeSet author="Alexander (generated)" id="1451754899655-8">
+        <dropUniqueConstraint constraintName="pharmacy_user_id_key" tableName="pharmacy"/>
+    </changeSet>
+</databaseChangeLog>

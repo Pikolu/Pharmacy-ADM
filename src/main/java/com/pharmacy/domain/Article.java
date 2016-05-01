@@ -45,6 +45,10 @@ public class Article implements Serializable {
     @Column(name = "description", length = 4000)
     private String description;
 
+    @Size(max = 40000)
+    @Column(name = "full_description", length = 40000)
+    private String fullDescription;
+
     @NotNull
     @Column(name = "articel_number", nullable = false)
     private Integer articelNumber;
@@ -65,14 +69,6 @@ public class Article implements Serializable {
 
     @Column(name = "exported")
     private Boolean exported;
-
-//    @LastModifiedDate
-//    @Column(name = "last_updated")
-//    private ZonedDateTime lastUpdated = ZonedDateTime.now();
-//
-//    @CreatedDate
-//    @Column(name = "creation_date")
-//    private ZonedDateTime creationDate = ZonedDateTime.now();
 
     public Long getId() {
         return id;
@@ -154,21 +150,13 @@ public class Article implements Serializable {
         this.exported = exported;
     }
 
-//    public ZonedDateTime getLastUpdated() {
-//        return lastUpdated;
-//    }
-//
-//    public void setLastUpdated(ZonedDateTime lastUpdated) {
-//        this.lastUpdated = lastUpdated;
-//    }
-//
-//    public ZonedDateTime getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public void setCreationDate(ZonedDateTime creationDate) {
-//        this.creationDate = creationDate;
-//    }
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
 
     @Override
     public boolean equals(Object o) {
