@@ -42,40 +42,54 @@ public class DatabaseConfiguration {
     @Autowired(required = false)
     private MetricRegistry metricRegistry;
 
+    @Inject
+    private DataSource dataSource;
+    @Inject
+    private HikariDataSource hikariDataSource;
+
     @Bean(destroyMethod = "close")
     @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
     public DataSource dataSource(DataSourceProperties dataSourceProperties, JHipsterProperties jHipsterProperties) {
-        log.debug("Configuring Datasource");
-        if (dataSourceProperties.getUrl() == null) {
-            log.error("Your database connection pool configuration is incorrect! The application" +
-                    " cannot start. Please check your Spring profile, current profiles are: {}",
-                Arrays.toString(env.getActiveProfiles()));
 
-            throw new ApplicationContextException("Database connection pool is not configured correctly");
-        }
-        HikariConfig config = new HikariConfig();
-        config.setDataSourceClassName(dataSourceProperties.getDriverClassName());
-        config.addDataSourceProperty("url", dataSourceProperties.getUrl());
-        if (dataSourceProperties.getUsername() != null) {
-            config.addDataSourceProperty("user", dataSourceProperties.getUsername());
-        } else {
-            config.addDataSourceProperty("user", ""); // HikariCP doesn't allow null user
-        }
-        if (dataSourceProperties.getPassword() != null) {
-            config.addDataSourceProperty("password", dataSourceProperties.getPassword());
-        } else {
-            config.addDataSourceProperty("password", ""); // HikariCP doesn't allow null password
-        }
+        log.info("Configuring Datasource");
 
-        if (metricRegistry != null) {
-            config.setMetricRegistry(metricRegistry);
+        if (hikariDataSource == null) {
+            log.info("Configuring new HikariDataSource");
+            if (dataSourceProperties.getUrl() == null) {
+                log.error("Your database connection pool configuration is incorrect! The application" +
+                        " cannot start. Please check your Spring profile, current profiles are: {}",
+                    Arrays.toString(env.getActiveProfiles()));
+
+                throw new ApplicationContextException("Database connection pool is not configured correctly");
+            }
+            HikariConfig config = new HikariConfig();
+            config.setDataSourceClassName(dataSourceProperties.getDriverClassName());
+            config.addDataSourceProperty("url", dataSourceProperties.getUrl());
+            config.setPoolName("ADMHikariPool");
+            if (dataSourceProperties.getUsername() != null) {
+                config.addDataSourceProperty("user", dataSourceProperties.getUsername());
+            } else {
+                config.addDataSourceProperty("user", ""); // HikariCP doesn't allow null user
+            }
+            if (dataSourceProperties.getPassword() != null) {
+                config.addDataSourceProperty("password", dataSourceProperties.getPassword());
+            } else {
+                config.addDataSourceProperty("password", ""); // HikariCP doesn't allow null password
+            }
+
+            if (metricRegistry != null) {
+                config.setMetricRegistry(metricRegistry);
+            }
+            return new HikariDataSource(config);
+        } else {
+            log.info("HikariDataSource is already running");
+            return hikariDataSource;
         }
-        return new HikariDataSource(config);
     }
+
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource, DataSourceProperties dataSourceProperties,
         LiquibaseProperties liquibaseProperties) {
-
         // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
         SpringLiquibase liquibase = new AsyncSpringLiquibase();
         liquibase.setDataSource(dataSource);

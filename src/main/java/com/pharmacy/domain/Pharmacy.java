@@ -40,18 +40,18 @@ public class Pharmacy implements Serializable {
     private String houseNumber;
 
     @Column(name = "zip_code")
-    @Field(type = FieldType.Integer)
+    @Field(type = FieldType.String)
     private String zipCode;
 
     @Column(name = "city", length = 100)
     @Field(type = FieldType.String)
     private String city;
 
-    @Column(name = "phone_number", length = 12)
+    @Column(name = "phone_number", length = 20)
     @Field(type = FieldType.String)
     private String phoneNumber;
 
-    @Column(name = "fax", length = 12)
+    @Column(name = "fax", length = 20)
     @Field(type = FieldType.String)
     private String fax;
 

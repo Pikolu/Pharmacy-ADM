@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Alexander (generated)" id="200000000-1">
+      <addColumn tableName="article">
+         <column name="description_back" type="varchar(40000)"/>
+      </addColumn>
+   </changeSet>
+
+    <changeSet author="Alexander (generated)" id="200000000-2">
+        <sql>
+            UPDATE article SET description_back = description;
+        </sql>
+    </changeSet>
+
+    <changeSet author="Alexander (generated" id="200000000-3">
+        <dropColumn columnName="description"
+                    tableName="article"/>
+    </changeSet>
+
+    <changeSet author="Alexander (generated)" id="200000000-4">
+        <addColumn tableName="article">
+            <column name="description" type="varchar(40000)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Alexander (generated)" id="200000000-5">
+        <sql>
+            UPDATE article SET description = description_back;
+        </sql>
+    </changeSet>
+
+    <changeSet author="Alexander (generated)" id="200000000-6">
+        <dropColumn columnName="description_back"
+                    tableName="article"/>
+    </changeSet>
+
+</databaseChangeLog>

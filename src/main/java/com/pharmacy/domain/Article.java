@@ -41,8 +41,8 @@ public class Article implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String sortName;
 
-    @Size(max = 4000)
-    @Column(name = "description", length = 4000)
+    @Size(max = 40000)
+    @Column(name = "description", length = 40000)
     private String description;
 
     @Size(max = 40000)
