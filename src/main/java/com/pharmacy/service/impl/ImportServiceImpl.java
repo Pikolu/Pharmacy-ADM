@@ -71,11 +71,8 @@ public class ImportServiceImpl implements ImportService {
                 l.forEach(l2 -> {
                     Article article = getArticle(l2, pharmacy);
                     art.add(article);
-//                    articleSearchRepository.save(article);
-
                 });
                 articleRepository.save(art);
-//                articleSearchRepository.save(art);
             });
             LOG.info("Finish the import of products for {}", pharmacy);
         } catch (Exception ex) {
@@ -102,11 +99,18 @@ public class ImportServiceImpl implements ImportService {
     @Transactional(propagation = Propagation.REQUIRED)
     private Article getArticle(List<String> attr, Pharmacy pharmacy) throws ServiceException {
         LOG.debug("Create product from CSV file {}", ArrayUtils.toString(attr));
+
+        boolean hasPrice = false;
+        boolean newArticle = false;
+
         String articleNumber = attr.get(0);
         Assert.hasText(articleNumber);
         Article article = articleRepository.findOne(Long.valueOf(articleNumber));
         if (article == null) {
             LOG.debug("article is empty", articleNumber);
+
+            newArticle = true;
+
             article = new Article();
             article.setId(Long.valueOf(articleNumber));
             article.setArticelNumber(Integer.valueOf(articleNumber));
@@ -122,13 +126,27 @@ public class ImportServiceImpl implements ImportService {
             Assert.notNull(pharmacy);
         }
 
-        Price price = new Price();
-        price.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
-        price.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
-        price.setExtraShippingSuffix(attr.get(13));
-        price.setArticle(article);
-        price.setPharmacy(pharmacy);
-        article.getPrices().add(price);
+        if (!newArticle) {
+            for (Price p : article.getPrices()) {
+                if (p.getPharmacy().equals(pharmacy)) {
+                    p.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
+                    p.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
+                    p.setExtraShippingSuffix(attr.get(13));
+                    hasPrice = true;
+                }
+            }
+        }
+
+        if (!hasPrice){
+            Price price = new Price();
+            price.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
+            price.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
+            price.setExtraShippingSuffix(attr.get(13));
+            price.setArticle(article);
+            price.setPharmacy(pharmacy);
+            article.getPrices().add(price);
+        }
+
         LOG.debug("Product is created or updated {}", article.toInfoString());
         return article;
     }

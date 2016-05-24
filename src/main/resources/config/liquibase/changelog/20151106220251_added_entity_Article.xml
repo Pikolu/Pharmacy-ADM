@@ -21,14 +21,14 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)"/>
-            <column name="description" type="varchar(4000)"/>
+            <column name="name" type="varchar(500)"/>
+            <column name="description" type="varchar(40000)"/>
             <column name="articel_number" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="image_url" type="varchar(255)"/>
-            <column name="deep_link" type="varchar(255)"/>
-            <column name="key_words" type="varchar(255)"/>
+            <column name="image_url" type="varchar(1000)"/>
+            <column name="deep_link" type="varchar(1000)"/>
+            <column name="key_words" type="varchar(1000)"/>
         </createTable>
 
     </changeSet>

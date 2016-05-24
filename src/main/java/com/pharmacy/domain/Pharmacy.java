@@ -39,7 +39,7 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String houseNumber;
 
-    @Column(name = "zip_code")
+    @Column(name = "zip_code", length = 10)
     @Field(type = FieldType.String)
     private String zipCode;
 
@@ -47,19 +47,19 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String city;
 
-    @Column(name = "phone_number", length = 20)
+    @Column(name = "phone_number", length = 100)
     @Field(type = FieldType.String)
     private String phoneNumber;
 
-    @Column(name = "fax", length = 20)
+    @Column(name = "fax", length = 100)
     @Field(type = FieldType.String)
     private String fax;
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 255)
     @Field(type = FieldType.String)
     private String email;
 
-    @Column(name = "home_page", length = 100)
+    @Column(name = "home_page", length = 255)
     @Field(type = FieldType.String)
     private String homePage;
 

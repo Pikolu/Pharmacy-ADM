@@ -7,12 +7,12 @@
     </changeSet>
     <changeSet author="Alexander (generated)" id="1457280483090-2">
         <addColumn tableName="pharmacy">
-            <column name="home_page" type="varchar(100)"/>
+            <column name="home_page" type="varchar(255)"/>
         </addColumn>
     </changeSet>
     <changeSet author="Alexander (generated)" id="1457280483090-3">
         <addColumn tableName="pharmacy">
-            <column name="phone_number" type="varchar(12)"/>
+            <column name="phone_number" type="varchar(100)"/>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

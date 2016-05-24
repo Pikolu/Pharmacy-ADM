@@ -33,11 +33,11 @@ public class Article implements Serializable {
     @Id
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 500)
     @Field(index = FieldIndex.analyzed, type = FieldType.String)
     private String name;
 
-    @Column(name = "sort_name")
+    @Column(name = "sort_name", length = 500)
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String sortName;
 
@@ -53,13 +53,13 @@ public class Article implements Serializable {
     @Column(name = "articel_number", nullable = false)
     private Integer articelNumber;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 1000)
     private String imageURL;
 
-    @Column(name = "deep_link")
+    @Column(name = "deep_link", length = 1000)
     private String deepLink;
 
-    @Column(name = "key_words")
+    @Column(name = "key_words", length = 1000)
     private String keyWords;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
@@ -199,5 +199,4 @@ public class Article implements Serializable {
             ", name='" + name + "'" +
             '}';
     }
-
 }
