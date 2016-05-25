@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="Alexander (generated)" id="1464197161084-1">
+      <addColumn tableName="pharmacy">
+         <column name="display_name" type="varchar(255)"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="Alexander (generated)" id="1464197161084-2">
+      <addColumn tableName="pharmacy">
+         <column name="owner" type="varchar(255)"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="Alexander (generated)" id="1464197161084-3">
+      <dropForeignKeyConstraint baseTableName="pharmacy" constraintName="fk_pharmacy_user_id"/>
+   </changeSet>
+
+   <changeSet author="Alexander (generated)" id="1464197161084-4">
+      <dropColumn columnName="user_id" tableName="pharmacy"/>
+   </changeSet>
+</databaseChangeLog>

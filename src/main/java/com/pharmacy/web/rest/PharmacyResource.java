@@ -84,10 +84,7 @@ public class PharmacyResource {
         if (pharmacy.getId() == null) {
             return createPharmacy(pharmacy);
         }
-        if (pharmacy.getUser() != null) {
-            User user = userRepository.findOne(pharmacy.getUser().getId());
-            pharmacy.setUser(user);
-        }
+
         Pharmacy result = pharmacyRepository.save(pharmacy);
         pharmacySearchRepository.save(pharmacy);
         return ResponseEntity.ok()
