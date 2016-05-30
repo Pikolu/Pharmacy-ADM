@@ -90,7 +90,6 @@ public class ArticleResourceTest {
         article.setDescription(DEFAULT_DESCRIPTION);
         article.setArticelNumber(DEFAULT_ARTICEL_NUMBER);
         article.setImageURL(DEFAULT_IMAGE_URL);
-        article.setDeepLink(DEFAULT_DEEP_LINK);
         article.setKeyWords(DEFAULT_KEY_WORDS);
     }
 
@@ -114,7 +113,6 @@ public class ArticleResourceTest {
         assertThat(testArticle.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testArticle.getArticelNumber()).isEqualTo(DEFAULT_ARTICEL_NUMBER);
         assertThat(testArticle.getImageURL()).isEqualTo(DEFAULT_IMAGE_URL);
-        assertThat(testArticle.getDeepLink()).isEqualTo(DEFAULT_DEEP_LINK);
         assertThat(testArticle.getKeyWords()).isEqualTo(DEFAULT_KEY_WORDS);
     }
 
@@ -195,7 +193,6 @@ public class ArticleResourceTest {
         article.setDescription(UPDATED_DESCRIPTION);
         article.setArticelNumber(UPDATED_ARTICEL_NUMBER);
         article.setImageURL(UPDATED_IMAGE_URL);
-        article.setDeepLink(UPDATED_DEEP_LINK);
         article.setKeyWords(UPDATED_KEY_WORDS);
 
         restArticleMockMvc.perform(put("/api/articles")
@@ -211,7 +208,6 @@ public class ArticleResourceTest {
         assertThat(testArticle.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testArticle.getArticelNumber()).isEqualTo(UPDATED_ARTICEL_NUMBER);
         assertThat(testArticle.getImageURL()).isEqualTo(UPDATED_IMAGE_URL);
-        assertThat(testArticle.getDeepLink()).isEqualTo(UPDATED_DEEP_LINK);
         assertThat(testArticle.getKeyWords()).isEqualTo(UPDATED_KEY_WORDS);
     }
 

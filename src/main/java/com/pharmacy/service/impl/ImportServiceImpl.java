@@ -119,7 +119,6 @@ public class ImportServiceImpl implements ImportService {
             article.setDescription(attr.get(3));
             article.setFullDescription(attr.get(4));
             article.setImageURL(attr.get(7));
-            article.setDeepLink(attr.get(8));
             article.setKeyWords(attr.get(9));
             article.setExported(false);
 
@@ -132,6 +131,7 @@ public class ImportServiceImpl implements ImportService {
                     p.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
                     p.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
                     p.setExtraShippingSuffix(attr.get(13));
+                    p.setDeepLink(attr.get(8));
                     hasPrice = true;
                 }
             }
@@ -144,6 +144,7 @@ public class ImportServiceImpl implements ImportService {
             price.setExtraShippingSuffix(attr.get(13));
             price.setArticle(article);
             price.setPharmacy(pharmacy);
+            price.setDeepLink(attr.get(8));
             article.getPrices().add(price);
         }
 
