@@ -56,9 +56,6 @@ public class Article implements Serializable {
     @Column(name = "image_url", length = 1000)
     private String imageURL;
 
-    @Column(name = "deep_link", length = 1000)
-    private String deepLink;
-
     @Column(name = "key_words", length = 1000)
     private String keyWords;
 
@@ -116,14 +113,6 @@ public class Article implements Serializable {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public String getDeepLink() {
-        return deepLink;
-    }
-
-    public void setDeepLink(String deepLink) {
-        this.deepLink = deepLink;
     }
 
     public String getKeyWords() {
@@ -187,7 +176,6 @@ public class Article implements Serializable {
             ", description='" + description + "'" +
             ", articelNumber='" + articelNumber + "'" +
             ", imageURL='" + imageURL + "'" +
-            ", deepLink='" + deepLink + "'" +
             ", keyWords='" + keyWords + "'" +
             '}';
     }

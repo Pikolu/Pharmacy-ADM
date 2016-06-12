@@ -10,6 +10,7 @@ import com.pharmacy.web.rest.dto.PaymentDTO;
 import com.pharmacy.web.rest.mapper.PaymentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -42,7 +43,7 @@ public class PaymentResource {
     @Inject
     private PaymentRepository paymentRepository;
 
-    @Inject
+    @Autowired(required = false)
     private PaymentMapper paymentMapper;
 
     @Inject
