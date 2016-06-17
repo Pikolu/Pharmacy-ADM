@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -66,6 +67,14 @@ public class Article implements Serializable {
 
     @Column(name = "exported")
     private Boolean exported;
+
+    @Column(name = "displayed_on_homepage")
+    private Boolean displayedOnHomepage;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<VariantArticle> variantArticles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -147,6 +156,22 @@ public class Article implements Serializable {
         this.fullDescription = fullDescription;
     }
 
+    public Boolean getDisplayedOnHomepage() {
+        return displayedOnHomepage;
+    }
+
+    public void setDisplayedOnHomepage(Boolean displayedOnHomepage) {
+        this.displayedOnHomepage = displayedOnHomepage;
+    }
+
+    public Set<VariantArticle> getVariantArticles() {
+        return variantArticles;
+    }
+
+    public void setVariantArticles(Set<VariantArticle> variantArticles) {
+        this.variantArticles = variantArticles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -187,4 +212,5 @@ public class Article implements Serializable {
             ", name='" + name + "'" +
             '}';
     }
+
 }
