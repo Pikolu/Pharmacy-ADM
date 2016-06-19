@@ -1,9 +1,12 @@
 package com.pharmacy.service.impl;
 
+import java.util.Optional;
+
 import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.Price;
+import com.pharmacy.domain.VariantArticle;
 import com.pharmacy.repository.*;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
@@ -27,6 +30,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by Alexander on 14.11.2015.
@@ -103,16 +107,20 @@ public class ImportServiceImpl implements ImportService {
         boolean hasPrice = false;
         boolean newArticle = false;
 
-        String articleNumber = attr.get(0);
-        Assert.hasText(articleNumber);
-        Article article = articleRepository.findOne(Long.valueOf(articleNumber));
+        String pznNumber = attr.get(0);
+
+        String articleNumber = pznNumber.substring(0, 3);
+        String variantCode = articleNumber.substring(4);
+
+        Assert.hasText(pznNumber);
+        Article article = articleRepository.findParentArticle(Integer.valueOf(articleNumber), true);
         if (article == null) {
-            LOG.debug("article is empty", articleNumber);
+            LOG.debug("article is empty", pznNumber);
 
             newArticle = true;
 
             article = new Article();
-            article.setId(Long.valueOf(articleNumber));
+            article.setId(Long.valueOf(pznNumber));
             article.setArticelNumber(Integer.valueOf(articleNumber));
             article.setName(attr.get(2));
             article.setSortName(attr.get(2));
@@ -121,8 +129,34 @@ public class ImportServiceImpl implements ImportService {
             article.setImageURL(attr.get(7));
             article.setKeyWords(attr.get(9));
             article.setExported(false);
+            article.setParent(true);
 
             Assert.notNull(pharmacy);
+        } else {
+            Optional<VariantArticle> variantArticle = article.getVariantArticles().stream()
+                .filter(v -> v.getVariantCode().equals(variantCode))
+                .findFirst();
+
+            if (variantArticle.isPresent()) {
+                newArticle = false;
+                article = variantArticle.get();
+            } else {
+                newArticle = true;
+                VariantArticle va = new VariantArticle();
+                va.setId(Long.valueOf(pznNumber));
+                va.setArticelNumber(Integer.valueOf(articleNumber));
+                va.setVariantCode(Integer.valueOf(variantCode));
+                va.setName(attr.get(2));
+                va.setSortName(attr.get(2));
+                va.setDescription(attr.get(3));
+                va.setFullDescription(attr.get(4));
+                va.setImageURL(attr.get(7));
+                va.setKeyWords(attr.get(9));
+                va.setExported(false);
+                va.setParent(false);
+
+                article = va;
+            }
         }
 
         if (!newArticle) {
@@ -137,7 +171,7 @@ public class ImportServiceImpl implements ImportService {
             }
         }
 
-        if (!hasPrice){
+        if (!hasPrice) {
             Price price = new Price();
             price.setPrice(Double.valueOf(convertStringToFolat(attr.get(5))));
             price.setDiscount(getDiscount(Float.valueOf(convertStringToFolat(attr.get(11))), Float.valueOf(convertStringToFolat((attr.get(5))))));
@@ -222,7 +256,7 @@ public class ImportServiceImpl implements ImportService {
             ex.printStackTrace();
         } finally {
             try {
-                if (inputStreamReader != null){
+                if (inputStreamReader != null) {
                     inputStreamReader.close();
                 }
                 if (csvReader != null) {

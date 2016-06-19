@@ -3,8 +3,6 @@ package com.pharmacy.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -14,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -66,6 +63,16 @@ public class Article implements Serializable {
 
     @Column(name = "exported")
     private Boolean exported;
+
+    @Column(name = "displayed_on_homepage")
+    private Boolean displayedOnHomepage;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "variant_article_id")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
+    private Set<VariantArticle> variantArticles = new HashSet<>();
+
+    private Boolean parent;
 
     public Long getId() {
         return id;
@@ -147,6 +154,30 @@ public class Article implements Serializable {
         this.fullDescription = fullDescription;
     }
 
+    public Boolean getDisplayedOnHomepage() {
+        return displayedOnHomepage;
+    }
+
+    public void setDisplayedOnHomepage(Boolean displayedOnHomepage) {
+        this.displayedOnHomepage = displayedOnHomepage;
+    }
+
+    public Set<VariantArticle> getVariantArticles() {
+        return variantArticles;
+    }
+
+    public void setVariantArticles(Set<VariantArticle> variantArticles) {
+        this.variantArticles = variantArticles;
+    }
+
+    public Boolean isParent() {
+        return parent;
+    }
+
+    public void setParent(Boolean parent) {
+        this.parent = parent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -187,4 +218,5 @@ public class Article implements Serializable {
             ", name='" + name + "'" +
             '}';
     }
+
 }
