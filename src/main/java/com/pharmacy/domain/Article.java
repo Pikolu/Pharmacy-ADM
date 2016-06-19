@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -70,7 +69,8 @@ public class Article implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "variant_article_id")
-    @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<VariantArticle> variantArticles = new HashSet<>();
 
     private Boolean parent;
@@ -151,16 +151,16 @@ public class Article implements Serializable {
         return fullDescription;
     }
 
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
     public Boolean getDisplayedOnHomepage() {
         return displayedOnHomepage;
     }
 
     public void setDisplayedOnHomepage(Boolean displayedOnHomepage) {
         this.displayedOnHomepage = displayedOnHomepage;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 
     public Set<VariantArticle> getVariantArticles() {
@@ -171,7 +171,7 @@ public class Article implements Serializable {
         this.variantArticles = variantArticles;
     }
 
-    public Boolean isParent() {
+    public Boolean getParent() {
         return parent;
     }
 
