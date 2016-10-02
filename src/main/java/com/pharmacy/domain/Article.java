@@ -1,6 +1,10 @@
 package com.pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -13,13 +17,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * A Article.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "article", indexes = {
     @Index(name = "article_number_index", columnList="articel_number")
@@ -65,15 +71,17 @@ public class Article implements Serializable {
     @Column(name = "exported")
     private Boolean exported;
 
-    @Column(name = "displayed_on_homepage")
-    private Boolean displayedOnHomepage;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "variant_article_id")
-    @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<VariantArticle> variantArticles = new HashSet<>();
 
+    @Column(name = "parent")
     private Boolean parent;
+
+    @Column(name = "showed_on_homepage")
+    private Boolean showedOnHomepage;
 
     public Long getId() {
         return id;
@@ -155,15 +163,10 @@ public class Article implements Serializable {
         this.fullDescription = fullDescription;
     }
 
-    public Boolean getDisplayedOnHomepage() {
-        return displayedOnHomepage;
-    }
-
-    public void setDisplayedOnHomepage(Boolean displayedOnHomepage) {
-        this.displayedOnHomepage = displayedOnHomepage;
-    }
-
     public Set<VariantArticle> getVariantArticles() {
+        if (variantArticles == null) {
+            variantArticles = new HashSet<>();
+        }
         return variantArticles;
     }
 
@@ -171,7 +174,7 @@ public class Article implements Serializable {
         this.variantArticles = variantArticles;
     }
 
-    public Boolean isParent() {
+    public Boolean getParent() {
         return parent;
     }
 
@@ -198,26 +201,6 @@ public class Article implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
-            ", articelNumber='" + articelNumber + "'" +
-            ", imageURL='" + imageURL + "'" +
-            ", keyWords='" + keyWords + "'" +
-            '}';
-    }
-
-    public String toInfoString() {
-        return "Article{" +
-            "id=" + id +
-            ", articelNumber='" + articelNumber + "'" +
-            ", name='" + name + "'" +
-            '}';
     }
 
 }

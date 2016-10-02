@@ -14,6 +14,12 @@
                     ng-model="article.id" readonly />
         </div>
         <div class="form-group">
+            <label translate="admApp.article.number" for="field_articel_number">Name</label>
+            <input type="text" class="form-control" name="name" id="field_articel_number"
+                   ng-model="article.articelNumber"
+            />
+        </div>
+        <div class="form-group">
             <label translate="admApp.article.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
                     ng-model="article.name"
@@ -61,8 +67,8 @@
 
         <div class="form-group">
             <label translate="admApp.article.displayedOnHomepage" for="field_displayedOnHomepage">ImageURL</label>
-            <input type="checkbox" class="form-control" name="displayedOnHomepage" id="field_displayedOnHomepage"
-                   ng-model="article.displayedOnHomepage"
+            <input type="checkbox" class="form-control" name="showedOnHomepage" id="field_displayedOnHomepage"
+                   ng-model="article.showedOnHomepage"
                 />
         </div>
     </div>

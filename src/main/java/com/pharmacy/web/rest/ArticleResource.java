@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -53,12 +54,16 @@ public class ArticleResource {
         log.debug("REST request to save Article : {}", article);
         if (article.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
+        } else {
+            article.setId(new Random().nextLong());
+            article.setExported(false);
+            article.setParent(false);
+            article.setShowedOnHomepage(false);
         }
-        article.setExported(false);
         Article result = articleRepository.save(article);
-        articleSearchRepository.save(result);
-        return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("article", result.getId().toString()))
+//        articleSearchRepository.save(result);
+        return ResponseEntity.created(new URI("/api/articles/" + article.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert("article", article.getId().toString()))
             .body(result);
     }
 

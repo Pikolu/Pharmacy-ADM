@@ -50,10 +50,10 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
+                    <th translate="global.field.image">Image</th>
                     <th translate="admApp.article.name">Name</th>
                     <th translate="admApp.article.description">Description</th>
                     <th translate="admApp.article.articelNumber">ArticelNumber</th>
-                    <th translate="admApp.article.imageURL">ImageURL</th>
                     <th translate="admApp.article.keyWords">KeyWords</th>
                     <th></th>
                 </tr>
@@ -61,10 +61,10 @@
             <tbody>
                 <tr ng-repeat="article in articles track by article.id">
                     <td><a ui-sref="article.detail({id:article.id})">{{article.id}}</a></td>
+                    <td><img width="100" height="100" src="{{article.imageURL}}" /></td>
                     <td>{{article.name}}</td>
                     <td>{{article.description}}</td>
                     <td>{{article.articelNumber}}</td>
-                    <td>{{article.imageURL}}</td>
                     <td>{{article.keyWords}}</td>
                     <td>
                         <button type="submit"

@@ -182,7 +182,7 @@ public class ImportServiceImpl implements ImportService {
             article.getPrices().add(price);
         }
 
-        LOG.debug("Product is created or updated {}", article.toInfoString());
+        LOG.debug("Product is created or updated {}", article);
         return article;
     }
 
