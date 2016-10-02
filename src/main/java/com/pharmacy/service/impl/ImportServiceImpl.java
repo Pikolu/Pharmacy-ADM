@@ -1,22 +1,17 @@
 package com.pharmacy.service.impl;
 
-import java.util.Optional;
-
 import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.Price;
 import com.pharmacy.domain.VariantArticle;
-import com.pharmacy.repository.*;
-import com.pharmacy.repository.search.ArticleSearchRepository;
-import com.pharmacy.repository.search.PriceSearchRepository;
+import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.service.api.ImportService;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,13 +19,13 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
-import java.io.*;
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 /**
  * Created by Alexander on 14.11.2015.
@@ -42,19 +37,7 @@ public class ImportServiceImpl implements ImportService {
     private final static Logger LOG = LoggerFactory.getLogger(ImportServiceImpl.class);
 
     @Inject
-    private PharmacyRepository pharmacyRepository;
-    @Inject
     private ArticleRepository articleRepository;
-    @Inject
-    private ArticleSearchRepository articleSearchRepository;
-    @Inject
-    private PriceSearchRepository priceSearchRepository;
-    @Inject
-    private PriceRepository priceRepository;
-    @Inject
-    private ArticleRepositoryImpl articleRepositoryImpl;
-    @Inject
-    private PriceRepositoryImpl priceRepositoryImpl;
 
     /**
      * This method imports the articles from CSV file and save this into database.
@@ -133,30 +116,30 @@ public class ImportServiceImpl implements ImportService {
 
             Assert.notNull(pharmacy);
         } else {
-            Optional<VariantArticle> variantArticle = article.getVariantArticles().stream()
-                .filter(v -> v.getVariantCode().equals(variantCode))
-                .findFirst();
-
-            if (variantArticle.isPresent()) {
-                newArticle = false;
-                article = variantArticle.get();
-            } else {
-                newArticle = true;
-                VariantArticle va = new VariantArticle();
-                va.setId(Long.valueOf(pznNumber));
-                va.setArticelNumber(Integer.valueOf(articleNumber));
-                va.setVariantCode(Integer.valueOf(variantCode));
-                va.setName(attr.get(2));
-                va.setSortName(attr.get(2));
-                va.setDescription(attr.get(3));
-                va.setFullDescription(attr.get(4));
-                va.setImageURL(attr.get(7));
-                va.setKeyWords(attr.get(9));
-                va.setExported(false);
-                va.setParent(false);
-
-                article = va;
-            }
+//            Optional<VariantArticle> variantArticle = article.getVariantArticles().stream()
+//                .filter(v -> v.getVariantCode().equals(variantCode))
+//                .findFirst();
+//
+//            if (variantArticle.isPresent()) {
+//                newArticle = false;
+//                article = variantArticle.get();
+//            } else {
+//                newArticle = true;
+//                VariantArticle va = new VariantArticle();
+//                va.setId(Long.valueOf(pznNumber));
+//                va.setArticelNumber(Integer.valueOf(articleNumber));
+//                va.setVariantCode(Integer.valueOf(variantCode));
+//                va.setName(attr.get(2));
+//                va.setSortName(attr.get(2));
+//                va.setDescription(attr.get(3));
+//                va.setFullDescription(attr.get(4));
+//                va.setImageURL(attr.get(7));
+//                va.setKeyWords(attr.get(9));
+//                va.setExported(false);
+//                va.setParent(false);
+//
+//                article = va;
+//            }
         }
 
         if (!newArticle) {
