@@ -5,7 +5,6 @@ angular.module('ui.tinymce', [])
   .value('uiTinymceConfig', {})
   .directive('uiTinymce', ['$rootScope', '$compile', '$timeout', '$window', '$sce', 'uiTinymceConfig', function($rootScope, $compile, $timeout, $window, $sce, uiTinymceConfig) {
     uiTinymceConfig = uiTinymceConfig || {};
-    var generatedIds = 0;
     var ID_ATTR = 'ui-tinymce';
     if (uiTinymceConfig.baseUrl) {
       tinymce.baseURL = uiTinymceConfig.baseUrl;
@@ -22,7 +21,9 @@ angular.module('ui.tinymce', [])
         var ngModel = ctrls[0],
           form = ctrls[1] || null;
 
-        var expression, options = {}, tinyInstance,
+        var expression, options = {
+          debounce: true
+        }, tinyInstance,
           updateView = function(editor) {
             var content = editor.getContent({format: options.format}).trim();
             content = $sce.trustAsHtml(content);
@@ -50,7 +51,7 @@ angular.module('ui.tinymce', [])
         }
 
         // generate an ID
-        attrs.$set('id', ID_ATTR + '-' + generatedIds++);
+        attrs.$set('id', ID_ATTR + '-' + (new Date().valueOf()));
 
         expression = {};
 
@@ -79,7 +80,7 @@ angular.module('ui.tinymce', [])
             ed.on('init', function() {
               ngModel.$render();
               ngModel.$setPristine();
-              ngModel.$setUntouched();
+                ngModel.$setUntouched();
               if (form) {
                 form.$setPristine();
               }
@@ -91,18 +92,31 @@ angular.module('ui.tinymce', [])
             // - the node has changed [NodeChange]
             // - an object has been resized (table, image) [ObjectResized]
             ed.on('ExecCommand change NodeChange ObjectResized', function() {
+              if (!options.debounce) {
+                ed.save();
+                updateView(ed);
+              	return;
+              }
               debouncedUpdate(ed);
             });
 
             ed.on('blur', function() {
               element[0].blur();
               ngModel.$setTouched();
-              scope.$digest();
+              if (!$rootScope.$$phase) {
+                scope.$digest();
+              }
             });
 
             ed.on('remove', function() {
               element.remove();
             });
+
+            if (uiTinymceConfig.setup) {
+              uiTinymceConfig.setup(ed, {
+                updateView: updateView
+              });
+            }
 
             if (expression.setup) {
               expression.setup(ed, {
@@ -123,8 +137,14 @@ angular.module('ui.tinymce', [])
           if (options.baseURL){
             tinymce.baseURL = options.baseURL;
           }
-          tinymce.init(options);
-          toggleDisable(scope.$eval(attrs.ngDisabled));
+          var maybeInitPromise = tinymce.init(options);
+          if(maybeInitPromise && typeof maybeInitPromise.then === 'function') {
+            maybeInitPromise.then(function() {
+              toggleDisable(scope.$eval(attrs.ngDisabled));
+            });
+          } else {
+            toggleDisable(scope.$eval(attrs.ngDisabled));
+          }
         });
 
         ngModel.$formatters.unshift(function(modelValue) {
