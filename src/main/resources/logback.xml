@@ -26,7 +26,7 @@
             <appender-ref ref="FILE"/>
         </appender>
 
-    <logger name="com.pharmacy" level="INFO"/>
+    <logger name="com.pharmacy" level="DEBUG"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>

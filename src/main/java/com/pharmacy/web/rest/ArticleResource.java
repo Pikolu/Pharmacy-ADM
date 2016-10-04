@@ -84,7 +84,7 @@ public class ArticleResource {
         articleSearchRepository.save(article);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("article", article.getId().toString()))
-            .body(result);
+            .body(article);
     }
 
     /**
