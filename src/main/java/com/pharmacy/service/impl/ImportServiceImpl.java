@@ -103,7 +103,6 @@ public class ImportServiceImpl implements ImportService {
             newArticle = true;
 
             article = new Article();
-            article.setId(Long.valueOf(pznNumber));
             article.setArticelNumber(Integer.valueOf(articleNumber));
             article.setName(attr.get(2));
             article.setSortName(attr.get(2));

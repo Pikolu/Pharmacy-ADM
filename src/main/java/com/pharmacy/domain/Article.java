@@ -35,6 +35,7 @@ import java.util.Set;
 public class Article implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", length = 500)

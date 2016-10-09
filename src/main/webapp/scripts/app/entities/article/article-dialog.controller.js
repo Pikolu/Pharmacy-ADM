@@ -6,7 +6,6 @@ angular.module('admApp')
 
             $scope.article = entity;
             $scope.prices = Price.query();
-            $scope.tinymceModel = 'Initial content';
             $scope.load = function (id) {
                 Article.get({id: id}, function (result) {
                     $scope.article = result;
@@ -28,14 +27,6 @@ angular.module('admApp')
 
             $scope.clear = function () {
                 $modalInstance.dismiss('cancel');
-            };
-
-            $scope.getContent = function () {
-                console.log('Editor content:', $scope.tinymceModel);
-            };
-
-            $scope.setContent = function () {
-                $scope.tinymceModel = 'Time: ' + (new Date());
             };
 
             $scope.tinymceOptions = {

@@ -50,7 +50,7 @@ public class PersistentToken implements Serializable {
     private String userAgent;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     public String getSeries() {

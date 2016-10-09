@@ -46,7 +46,16 @@
             "fieldId": 6,
             "fieldName": "keyWords",
             "fieldType": "String"
-        }
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "fullDescription",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "4000"
+        },
     ],
     "changelogDate": "20151106220251",
     "dto": "no",

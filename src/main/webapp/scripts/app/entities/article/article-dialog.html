@@ -42,13 +42,7 @@
             <label translate="admApp.article.fullDescription" for="field_full_description">Description</label>
             <textarea type="text" class="form-control" name="fullDescription" id="field_full_description"
                    rows="10" cols="50" ng-model="article.fullDescription" ui-tinymce
-                   ng-maxlength="4000" />
-
-            <div ng-show="editForm.fullDescription.$invalid">
-                <p class="help-block"
-                   ng-show="editForm.fullDescription.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
-                    This field cannot be longer than 4000 characters.
-                </p>
+                   />
             </div>
         </div>
 
