@@ -28,8 +28,7 @@
         <div class="form-group">
             <label translate="admApp.article.description" for="field_description">Description</label>
             <textarea type="text" class="form-control" name="description" id="field_description"
-                    ng-model="article.description" rows="10" cols="50"
-                    ng-maxlength="4000" />
+                    ng-model="article.description" rows="10" cols="50" ui-tinymce />
             <div ng-show="editForm.description.$invalid">
                 <p class="help-block"
                     ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
