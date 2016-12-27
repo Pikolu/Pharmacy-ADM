@@ -65,6 +65,12 @@
                    ng-model="article.showedOnHomepage"
                 />
         </div>
+    <div>
+        <multiple-autocomplete ng-model="selectedList"
+                               object-property="name"
+                               suggestions-arr="optionsList">
+        </multiple-autocomplete>
+    </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
