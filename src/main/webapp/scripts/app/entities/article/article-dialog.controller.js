@@ -6,13 +6,7 @@ angular.module('admApp')
 
             $scope.article = entity;
             $scope.prices = Price.query();
-            $scope.optionsList = [
-                {id: 1,  name : "Java"},
-                {id: 2,  name : "C"},
-                {id: 3,  name : "C++"},
-                {id: 4,  name : "AngularJs"},
-                {id: 5,  name : "JavaScript"}
-            ];
+            $scope.optionsList = Article.query();
             $scope.load = function (id) {
                 Article.get({id: id}, function (result) {
                     $scope.article = result;
