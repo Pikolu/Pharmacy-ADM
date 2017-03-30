@@ -79,7 +79,7 @@ public class ArticleResource {
             updateVariantProducts(article);
         }
         article.setExported(false);
-        Article result = articleRepository.saveAndFlush(article);
+        Article result = articleRepository.save(article);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("article", article.getId().toString()))
             .body(result);
@@ -94,7 +94,7 @@ public class ArticleResource {
     @Timed
     public ResponseEntity<List<Article>> getAllArticles(Pageable pageable)
         throws URISyntaxException {
-        Page<Article> page = articleRepository.findAll(pageable);
+        Page<Article> page = articleRepository.findArticleWIthoutVariant(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -146,7 +146,7 @@ public class ArticleResource {
     private void updateVariantProducts(Article article) {
         if (CollectionUtils.isNotEmpty(article.getVariantArticles())) {
             article.getVariantArticles().forEach(a -> {
-                a.setBaseArticle(article);
+                a.setBaseArticle(articleRepository.findOne(article.getId()));
             });
         }
     }

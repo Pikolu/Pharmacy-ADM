@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"baseArticle", "variantArticles"})
 @Entity
 @Table(name = "article", indexes = {
     @Index(name = "article_number_index", columnList="articel_number")
@@ -76,6 +76,7 @@ public class Article implements Serializable {
     private Boolean showedOnHomepage;
 
     @ManyToOne
+    @JsonIgnore
     private Article baseArticle;
 
     @OneToMany(mappedBy="baseArticle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
