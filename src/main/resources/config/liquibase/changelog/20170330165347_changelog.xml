@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="Alex Tina (generated)" id="1490885633289-1">
+      <addColumn tableName="article">
+         <column name="base_article_id" type="int8"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-2">
+      <addForeignKeyConstraint baseColumnNames="base_article_id"
+                               baseTableName="article"
+                               constraintName="FK_91ckcfhwgr9e7bqiciaui7p60"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-19">
+      <dropColumn columnName="concentration" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-20">
+      <dropColumn columnName="owner_name" tableName="pharmacy"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-21">
+      <dropColumn columnName="packaging" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-22">
+      <dropColumn columnName="parent" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-23">
+      <dropColumn columnName="recipe" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-24">
+      <dropColumn columnName="variant_article_id" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-25">
+      <dropDefaultValue columnDataType="varchar(31)" columnName="DTYPE" tableName="article"/>
+   </changeSet>
+   <changeSet author="Alex Tina (generated)" id="1490885633289-34">
+      <dropDefaultValue columnDataType="boolean"
+                        columnName="showed_on_homepage"
+                        tableName="article"/>
+   </changeSet>
+</databaseChangeLog>

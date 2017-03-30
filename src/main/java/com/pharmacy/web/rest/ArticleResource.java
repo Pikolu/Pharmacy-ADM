@@ -6,6 +6,7 @@ import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.web.rest.util.HeaderUtil;
 import com.pharmacy.web.rest.util.PaginationUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Article.
@@ -54,6 +55,7 @@ public class ArticleResource {
         if (article.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
         }
+        updateVariantProducts(article);
         article.setExported(false);
         Article result = articleRepository.saveAndFlush(article);
         articleSearchRepository.save(result);
@@ -73,6 +75,8 @@ public class ArticleResource {
         log.debug("REST request to update Article : {}", article);
         if (article.getId() == null) {
             return createArticle(article);
+        } else {
+            updateVariantProducts(article);
         }
         article.setExported(false);
         Article result = articleRepository.saveAndFlush(article);
@@ -137,5 +141,13 @@ public class ArticleResource {
         return StreamSupport
             .stream(articleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    private void updateVariantProducts(Article article) {
+        if (CollectionUtils.isNotEmpty(article.getVariantArticles())) {
+            article.getVariantArticles().forEach(a -> {
+                a.setBaseArticle(article);
+            });
+        }
     }
 }
