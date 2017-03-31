@@ -36,7 +36,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60)
+    @Size(min = 60, max = 60) 
     @Column(length = 60)
     private String password;
 
@@ -71,9 +71,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
-
-    @Column(name = "accepted_privacy", nullable = false)
-    private Boolean acceptedPrivacy;
 
     @JsonIgnore
     @ManyToMany
@@ -191,14 +188,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
         this.persistentTokens = persistentTokens;
-    }
-
-    public Boolean isAcceptedPrivacy() {
-        return acceptedPrivacy;
-    }
-
-    public void setAcceptedPrivacy(Boolean acceptedPrivacy) {
-        this.acceptedPrivacy = acceptedPrivacy;
     }
 
     @Override

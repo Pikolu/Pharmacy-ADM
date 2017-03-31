@@ -4,7 +4,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%date{ISO8601,UTC} %level [%thread] %logger{10}:%line %msg %n</Pattern>
+            <Pattern>[%p] %c - %m%n</Pattern>
         </encoder>
     </appender>
 
@@ -27,7 +27,7 @@
     </appender>
 -->
 
-    <logger name="com.pharmacy" level="INFO"/>
+    <logger name="com.pharmacy" level="${logback.loglevel}"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
@@ -40,13 +40,12 @@
     <logger name="io.undertow" level="WARN"/>
     <logger name="net.sf.ehcache" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
-    <logger name="org.apache.catalina.startup.DigesterFactory" level="WARN"/>
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
     <logger name="org.bson" level="WARN"/>
     <logger name="org.elasticsearch" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
-    <logger name="org.hibernate.ejb.HibernatePersistence" level="WARN"/>
-    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
     <logger name="org.springframework.security" level="WARN"/>
@@ -61,7 +60,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="INFO">
+    <root level="${logback.loglevel}">
         <appender-ref ref="CONSOLE"/>
     </root>
 

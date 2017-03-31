@@ -34,4 +34,8 @@ angular.module('admApp')
                 plugins: 'link image code',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
             };
+
+            $scope.refreshProducts = function (product) {
+                optionsList = ArticleSearch.query(product);
+            }
         }]);

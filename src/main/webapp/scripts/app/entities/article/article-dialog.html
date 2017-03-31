@@ -70,9 +70,11 @@
                                    <!--object-property="articelNumber"-->
                                    <!--suggestions-arr="optionsList">-->
             <!--</multiple-autocomplete>-->
-            <ui-select id="field_variantArticles" multiple ng-model="article.variantArticles" theme="bootstrap" ng-disabled="ctrl.disabled" close-on-select="false" title="Choose a color">
+            <ui-select id="field_variantArticles" multiple ng-model="article.variantArticles" theme="bootstrap" ng-disabled="ctrl.disabled"
+                       close-on-select="false"
+                       title="Choose a color">
                 <ui-select-match placeholder="Select products...">{{$item.id}} &lt;{{$item.name}}&gt;</ui-select-match>
-                <ui-select-choices repeat="product in optionsList | filter:$select.search">
+                <ui-select-choices repeat="product in optionsList | filter:$select.search" refresh="refreshProducts($select.search)">
                     <img width="20" height="20" src="{{product.imageURL}}" />
                     <div ng-bind-html="product.id | highlight: $select.search"></div>
                     <div ng-bind-html="product.name | highlight: $select.search"></div>

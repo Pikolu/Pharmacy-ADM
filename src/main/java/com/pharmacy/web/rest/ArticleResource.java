@@ -94,7 +94,7 @@ public class ArticleResource {
     @Timed
     public ResponseEntity<List<Article>> getAllArticles(Pageable pageable)
         throws URISyntaxException {
-        Page<Article> page = articleRepository.findArticleWIthoutVariant(pageable);
+        Page<Article> page = articleRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -20,14 +20,14 @@ spring:
             enabled: false # we use Grunt + BrowserSync for livereload
     datasource:
         driver-class-name: org.postgresql.ds.PGSimpleDataSource
-        url: jdbc:postgresql://localhost:5432/adm
+        url: jdbc:postgresql://localhost:5432/
         name: adm
         username: postgres
         password: Admin123#
     jpa:
         database-platform: com.pharmacy.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
-        show_sql: false
+        show_sql: true
         properties:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
@@ -35,12 +35,12 @@ spring:
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     data:
         elasticsearch:
-            cluster-name: pharmacy-adm
+            cluster-name:
             cluster-nodes:
             properties:
                 path:
-                  logs: C:\lucene
-                  data: C:\lucene
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
     mail:
         host: localhost
     messages:
@@ -48,12 +48,8 @@ spring:
     thymeleaf:
         cache: false
 
-logging:
-    config: classpath:logback.xml
-
 liquibase:
     contexts: dev
-    enabled: true
 
 server:
     port: 8080
@@ -70,7 +66,7 @@ jhipster:
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: adm@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx.enabled: false
+        jmx.enabled: true
         spark:
             enabled: false
             host: localhost
