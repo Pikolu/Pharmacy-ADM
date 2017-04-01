@@ -3,9 +3,11 @@ package com.pharmacy.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pharmacy.domain.Article;
 import com.pharmacy.repository.ArticleRepository;
+import com.pharmacy.repository.ArticleRepositoryImpl;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.web.rest.util.HeaderUtil;
 import com.pharmacy.web.rest.util.PaginationUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,9 +25,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Article.
@@ -42,6 +46,9 @@ public class ArticleResource {
     @Inject
     private ArticleSearchRepository articleSearchRepository;
 
+    @Inject
+    private ArticleRepositoryImpl articleRepositoryImpl;
+
     /**
      * POST  /articles -> Create a new article.
      */
@@ -54,6 +61,7 @@ public class ArticleResource {
         if (article.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
         }
+        updateVariantProducts(article);
         article.setExported(false);
         Article result = articleRepository.saveAndFlush(article);
         articleSearchRepository.save(result);
@@ -73,9 +81,11 @@ public class ArticleResource {
         log.debug("REST request to update Article : {}", article);
         if (article.getId() == null) {
             return createArticle(article);
+        } else {
+            updateVariantProducts(article);
         }
         article.setExported(false);
-        Article result = articleRepository.saveAndFlush(article);
+        Article result = articleRepository.save(article);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("article", article.getId().toString()))
             .body(result);
@@ -137,5 +147,25 @@ public class ArticleResource {
         return StreamSupport
             .stream(articleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * SEARCH  /_search/articles/:query -> search for the article corresponding
+     * to the query.
+     */
+    @RequestMapping(value = "/_search/articles/variant/{query}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Article> searchVariantArticles(@PathVariable String query) {
+        return articleRepositoryImpl.findArticles(query);
+    }
+
+    private void updateVariantProducts(Article article) {
+        if (CollectionUtils.isNotEmpty(article.getVariantArticles())) {
+            article.getVariantArticles().forEach(a -> {
+                a.setBaseArticle(articleRepository.findOne(article.getId()));
+            });
+        }
     }
 }

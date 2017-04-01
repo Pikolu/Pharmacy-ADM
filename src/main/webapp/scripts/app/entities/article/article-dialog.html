@@ -59,17 +59,28 @@
         </div>
 
         <div class="form-group">
-            <label translate="admApp.article.displayedOnHomepage" for="field_displayedOnHomepage">ImageURL</label>
+            <label translate="admApp.article.displayedOnHomepage" for="field_displayedOnHomepage">Homepage</label>
             <input type="checkbox" class="form-control" name="showedOnHomepage" id="field_displayedOnHomepage"
                    ng-model="article.showedOnHomepage"
                 />
         </div>
-    <div>
-        <multiple-autocomplete ng-model="selectedList"
-                               object-property="name"
-                               suggestions-arr="optionsList">
-        </multiple-autocomplete>
-    </div>
+        <div class="form-group">
+            <label translate="admApp.article.variantArticles" for="field_variantArticles">Variants</label>
+            <!--<multiple-autocomplete ng-model="article.variantArticles" id="field_variantArticles"-->
+                                   <!--object-property="articelNumber"-->
+                                   <!--suggestions-arr="optionsList">-->
+            <!--</multiple-autocomplete>-->
+            <ui-select id="field_variantArticles" multiple ng-model="article.variantArticles" theme="bootstrap" ng-disabled="ctrl.disabled"
+                       close-on-select="false"
+                       title="Choose a color">
+                <ui-select-match placeholder="Select products...">{{$item.id}} &lt;{{$item.name}}&gt;</ui-select-match>
+                <ui-select-choices repeat="product in optionsList | filter:$select.search" refresh="refreshProducts($select.search)">
+                    <img width="20" height="20" src="{{product.imageURL}}" />
+                    <div ng-bind-html="product.id | highlight: $select.search"></div>
+                    <div ng-bind-html="product.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

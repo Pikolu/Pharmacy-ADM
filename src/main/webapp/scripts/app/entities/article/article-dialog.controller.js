@@ -1,18 +1,12 @@
 'use strict';
 
 angular.module('admApp')
-    .controller('ArticleDialogController', ['$scope', '$stateParams', '$modalInstance', 'entity', 'Article', 'Price',
-        function ($scope, $stateParams, $modalInstance, entity, Article, Price) {
+    .controller('ArticleDialogController', ['$scope', '$stateParams', '$modalInstance', 'entity', 'Article', 'Price', 'ArticleSearch', 'ArticleVariantSearch',
+        function ($scope, $stateParams, $modalInstance, entity, Article, Price, ArticleSearch, ArticleVariantSearch) {
 
             $scope.article = entity;
             $scope.prices = Price.query();
-            $scope.optionsList = [
-                {id: 1,  name : "Java"},
-                {id: 2,  name : "C"},
-                {id: 3,  name : "C++"},
-                {id: 4,  name : "AngularJs"},
-                {id: 5,  name : "JavaScript"}
-            ];
+            $scope.optionsList = [];
             $scope.load = function (id) {
                 Article.get({id: id}, function (result) {
                     $scope.article = result;
@@ -40,4 +34,10 @@ angular.module('admApp')
                 plugins: 'link image code',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
             };
+
+            $scope.refreshProducts = function (stringQuery) {
+                if (stringQuery != "" && stringQuery.length >= 3) {
+                    $scope.optionsList = ArticleVariantSearch.query({query: stringQuery});
+                }
+            }
         }]);

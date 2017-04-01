@@ -27,7 +27,7 @@ spring:
         database-platform: com.pharmacy.domain.util.FixedH2Dialect
         database: H2
         open-in-view: false
-        show_sql: false
+        show_sql: true
         hibernate:
             ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
@@ -38,10 +38,12 @@ spring:
             hibernate.hbm2ddl.auto: validate
     data:
         elasticsearch:
+            cluster-name:
+            cluster-nodes:
             properties:
                 path:
-                  logs: C:\lucene
-                  data: C:\lucene
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
     mail:
         host: localhost
     mvc:

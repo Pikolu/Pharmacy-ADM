@@ -42,8 +42,19 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
-        log.debug("Starting Liquibase synchronously");
-        initDb();
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
+            taskExecutor.execute(() -> {
+                try {
+                    log.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
+                    initDb();
+                } catch (LiquibaseException e) {
+                    log.error("Liquibase could not start correctly, your database is NOT ready: {}", e.getMessage(), e);
+                }
+            });
+        } else {
+            log.debug("Starting Liquibase synchronously");
+            initDb();
+        }
     }
 
     protected void initDb() throws LiquibaseException {

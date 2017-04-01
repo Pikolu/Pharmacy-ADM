@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.Price;
-import com.pharmacy.domain.VariantArticle;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.service.api.ImportService;
 import org.apache.commons.lang.ArrayUtils;
@@ -25,7 +24,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by Alexander on 14.11.2015.
@@ -96,7 +94,7 @@ public class ImportServiceImpl implements ImportService {
         String variantCode = articleNumber.substring(4);
 
         Assert.hasText(pznNumber);
-        Article article = articleRepository.findParentArticle(Integer.valueOf(articleNumber), true);
+        Article article = articleRepository.findArticleByArticleNumber(Integer.valueOf(articleNumber));
         if (article == null) {
             LOG.debug("article is empty", pznNumber);
 
@@ -111,7 +109,6 @@ public class ImportServiceImpl implements ImportService {
             article.setImageURL(attr.get(7));
             article.setKeyWords(attr.get(9));
             article.setExported(false);
-            article.setParent(true);
 
             Assert.notNull(pharmacy);
         } else {

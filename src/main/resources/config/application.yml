@@ -29,9 +29,6 @@ security:
     basic:
         enabled: false
 
-logging:
-    config: classpath:logback.xml
-
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
@@ -55,7 +52,3 @@ jhipster:
         contact:
         license:
         licenseUrl:
-
-multipart:
-    max-file-size: 100Mb
-    max-request-size: 100Mb

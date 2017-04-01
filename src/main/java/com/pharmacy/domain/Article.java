@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -17,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"baseArticle", "variantArticles"})
 @Entity
 @Table(name = "article", indexes = {
     @Index(name = "article_number_index", columnList="articel_number")
@@ -72,116 +72,16 @@ public class Article implements Serializable {
     @Column(name = "exported")
     private Boolean exported;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "variant_article_id")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<VariantArticle> variantArticles = new HashSet<>();
-
-    @Column(name = "parent")
-    private Boolean parent;
-
     @Column(name = "showed_on_homepage")
     private Boolean showedOnHomepage;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    @JsonIgnore
+    private Article baseArticle;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSortName() {
-        return sortName;
-    }
-
-    public void setSortName(String sortName) {
-        this.sortName = sortName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getArticelNumber() {
-        return articelNumber;
-    }
-
-    public void setArticelNumber(Integer articelNumber) {
-        this.articelNumber = articelNumber;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public String getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
-        this.prices = prices;
-    }
-
-    public Boolean getExported() {
-        return exported;
-    }
-
-    public void setExported(Boolean exported) {
-        this.exported = exported;
-    }
-
-    public String getFullDescription() {
-        return fullDescription;
-    }
-
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
-    public Set<VariantArticle> getVariantArticles() {
-        if (variantArticles == null) {
-            variantArticles = new HashSet<>();
-        }
-        return variantArticles;
-    }
-
-    public void setVariantArticles(Set<VariantArticle> variantArticles) {
-        this.variantArticles = variantArticles;
-    }
-
-    public Boolean getParent() {
-        return parent;
-    }
-
-    public void setParent(Boolean parent) {
-        this.parent = parent;
-    }
+    @OneToMany(mappedBy="baseArticle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<Article> variantArticles;
 
     @Override
     public boolean equals(Object o) {
