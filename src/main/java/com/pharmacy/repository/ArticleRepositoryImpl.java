@@ -1,17 +1,17 @@
 package com.pharmacy.repository;
 
 import com.pharmacy.domain.Article;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -31,5 +31,24 @@ public class ArticleRepositoryImpl {
 
     public void save(List<Article> articles) {
         articles.forEach(a -> save(a));
+    }
+
+    public List<Article> findArticles(String query) {
+        return createLikeIdQuery(query).getResultList();
+    }
+
+    private TypedQuery<Article> createLikeIdQuery(String query) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Article> criteriaQuery = criteriaBuilder.createQuery(Article.class);
+        Root<Article> article = criteriaQuery.from(Article.class);
+        if (StringUtils.isNumeric(query)) {
+            criteriaQuery.where(criteriaBuilder.or(
+                criteriaBuilder.equal(article.get("id"), Long.valueOf(query)),
+                criteriaBuilder.like(criteriaBuilder.lower(article.get("name")), "%" + query.toLowerCase() + "%")));
+        } else {
+            criteriaQuery.where(criteriaBuilder.like(
+                criteriaBuilder.lower(article.get("name")), "%" + query.toLowerCase() + "%"));
+        }
+        return entityManager.createQuery(criteriaQuery);
     }
 }

@@ -4,20 +4,20 @@ angular.module('admApp')
     .controller('ArticleController', function ($scope, Article, ArticleSearch, ParseLinks) {
         $scope.articles = [];
         $scope.page = 0;
-        $scope.loadAll = function() {
-            Article.query({page: $scope.page, size: 20}, function(result, headers) {
+        $scope.loadAll = function () {
+            Article.query({page: $scope.page, size: 20}, function (result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.articles = result;
             });
         };
-        $scope.loadPage = function(page) {
+        $scope.loadPage = function (page) {
             $scope.page = page;
             $scope.loadAll();
         };
         $scope.loadAll();
 
         $scope.delete = function (id) {
-            Article.get({id: id}, function(result) {
+            Article.get({id: id}, function (result) {
                 $scope.article = result;
                 $('#deleteArticleConfirmation').modal('show');
             });
@@ -32,11 +32,21 @@ angular.module('admApp')
                 });
         };
 
-        $scope.search = function () {
-            ArticleSearch.query({query: $scope.searchQuery}, function(result) {
+        $scope.searchVariantArticles = function () {
+            ArticleVariantSearch.search({query: $scope.searchQuery}, function (result) {
                 $scope.articles = result;
-            }, function(response) {
-                if(response.status === 404) {
+            }, function (response) {
+                if (response.status === 404) {
+                    $scope.loadAll();
+                }
+            });
+        };
+
+        $scope.search = function () {
+            ArticleSearch.query({query: $scope.searchQuery}, function (result) {
+                $scope.articles = result;
+            }, function (response) {
+                if (response.status === 404) {
                     $scope.loadAll();
                 }
             });
