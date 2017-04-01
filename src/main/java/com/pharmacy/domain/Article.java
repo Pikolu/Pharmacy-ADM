@@ -79,7 +79,7 @@ public class Article implements Serializable {
     @JsonIgnore
     private Article baseArticle;
 
-    @OneToMany(mappedBy="baseArticle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="baseArticle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Article> variantArticles;
 
