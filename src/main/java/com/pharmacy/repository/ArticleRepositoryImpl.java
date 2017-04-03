@@ -22,15 +22,19 @@ import java.util.List;
 @Transactional
 public class ArticleRepositoryImpl {
 
+    private final EntityManager entityManager;
+
     @Inject
-    private EntityManager entityManager;
+    public ArticleRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public void save(Article article) {
         entityManager.merge(article);
     }
 
     public void save(List<Article> articles) {
-        articles.forEach(a -> save(a));
+        articles.forEach(this::save);
     }
 
     public List<Article> findArticles(String query) {
@@ -43,7 +47,8 @@ public class ArticleRepositoryImpl {
         Root<Article> article = criteriaQuery.from(Article.class);
         if (StringUtils.isNumeric(query)) {
             criteriaQuery.where(criteriaBuilder.or(
-                criteriaBuilder.equal(article.get("id"), Long.valueOf(query)),
+                criteriaBuilder.like(article.get("id").as(String.class), "%" + Long.valueOf(query) + "%"),
+                criteriaBuilder.like(article.get("articelNumber").as(String.class), "%" + Long.valueOf(query) + "%"),
                 criteriaBuilder.like(criteriaBuilder.lower(article.get("name")), "%" + query.toLowerCase() + "%")));
         } else {
             criteriaQuery.where(criteriaBuilder.like(
